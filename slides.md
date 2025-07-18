@@ -77,9 +77,15 @@ hideInToc: true
 - **Фанат систем типов**
 - Тянет разбираться в
   - компиляторах и оптимизациях
-  - кишках runtime разных языков
+  - "кишках" runtime разных языков
   - IDE и инструментах
   - LISP, Prolog, OCaml, Haskell, Scala…
+
+<!--
+Когда-то занимался системным программированием на C++, писал UI на Qt, прошёл через backend-разработку на Java. Параллельно увлекался изучением вопросов дизайна языков программирования, математическими основами, которые за ними стоят... Фанат систем типов. Люблю поинтересоваться, как устроены компиляторы, работа с синтаксическими деревьями в IDE и других инструментах.
+
+И вот с этим опытом я пришёл во frontend-разработку. Какое-то время я просто наблюдал за развитием TypeScript, а потом решил, что всё, пора, возлагая на него определённые надежды.
+-->
 
 ---
 layout: default
@@ -95,26 +101,63 @@ layout: default
 dragPos:
   tapl: 632,100,300,_
   typing_rules: 107,214,487,_
+  complex_type1: 74,206,803,_
+  complex_type2: 93,309,800,_
+  mortal_combat: 251,242,450,_
+  typescript_is_bad: 210,289,198,_
+  bad_ts: 431,317,428,_
+  prototype_chain: 92,123,646,_
+  proxy: 153,322,322,_
+  devid: 572,334,271,_
+  tsgo: 475,105,464,_
+  tsgo_link: 33,370,439,_
 ---
 
 # Вокруг TypeScript много интересного
 
+<div v-click="[1, 2]">
+  <img v-drag="'tapl'" src="./images/tapl.png" />
+  <img v-drag="'typing_rules'" src="./images/typing_rules.png" />
+</div>
+<div v-click="[2, 3]">
+  <img v-drag="'complex_type1'" src="./images/complex_type1.png" />
+  <img v-drag="'complex_type2'" src="./images/complex_type2.png" />
+</div>
+<div v-click="[3, 4]">
+  <img v-drag="'mortal_combat'" src="./images/mortal_combat.png" />
+</div>
+<div v-click="[4, 5]">
+  <img v-drag="'typescript_is_bad'" src="./images/typescript_is_bad.png" />
+  <div v-drag="'bad_ts'">
+    <p>Why TypeScript is Bad</p>
+    <p><a href="https://t.me/why_typescript_is_bad">https://t.me/why_typescript_is_bad</a></p>
+  </div>
+</div>
+<div v-click="[5, 6]">
+  <img v-drag="'prototype_chain'" src="./images/prototype_chain.png" />
+  <img v-drag="'proxy'" src="./images/proxy.png" />
+  <img v-drag="'devid'" src="./images/devid.png" />
+</div>
+<div v-click="[6, 7]">
+  <img v-drag="'tsgo'" src="./images/tsgo.png" />
+  <div v-drag="'tsgo_link'">
+    <p><a href="https://github.com/microsoft/typescript-go">https://github.com/microsoft/typescript-go</a></p>
+  </div>
+</div>
+
 <v-clicks>
 
-- Погружение в теорию систем типов
+- Погружение в теорию типов
 - Программирование на типах
 - Сравнение статической типизации с динамической
-- Разбор всех проблем TypeScript
+- Разбор *всех* проблем TypeScript
 - Метапрограммирование на прототипах и Proxy
 - Миграция tsc на Go
 
 </v-clicks>
 
-<img v-drag="'tapl'" src="./images/tapl.png" />
-<img v-drag="'typing_rules'" src="./images/typing_rules.png" />
-
 <!--
-Notes can also sync with clicks
+А в TypeScript много чего удивительного, несмотря на его кажущуюся простоту.
 
 [click] This will be highlighted after the first click
 

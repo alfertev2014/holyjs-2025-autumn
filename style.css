@@ -5,3 +5,7 @@
 .slidev-layout h1 {
   font-weight: 800;
 }
+
+.slidev-layout li {
+  line-height: 1.5em;
+}

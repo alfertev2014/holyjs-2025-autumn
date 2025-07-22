@@ -28,9 +28,7 @@ fonts:
 Разбираемся с отношением подтипов в TypeScript
 
 <!--
-Приветствие и вступление:
-
-Рад всех приветствовать на моём докладе "Дырявое решето типов" или "Разбираемся с отношением подтипов в TypeScript". Название выбрано не просто так, в ходе доклада поймёте, почему.
+Всех приветствую на моём докладе "Дырявое решето типов" или "Разбираемся с отношением подтипов в TypeScript". Почему именно такое название, поймёте в ходе доклада.
 -->
 
 ---
@@ -47,7 +45,7 @@ hideInToc: true
 - GitHub: alfertev2014
 
 <!--
-Итак, я Василий Алфертьев, в настоящее время работаю в компании Открытые решения frontend-разработчиком на React-е, активно использую TypeScript в работе.
+Сперва, кто я такой. Я Василий Алфертьев, в настоящее время работаю frontend-разработчиком в компании Открытые решения, пишу на React-е, активно использую TypeScript в работе. Ничего особенного, делаю интерфейсы различных одностраничных приложений.
 -->
 
 ---
@@ -82,20 +80,10 @@ hideInToc: true
   - LISP, Prolog, OCaml, Haskell, Scala…
 
 <!--
-Когда-то занимался системным программированием на C++, писал UI на Qt, прошёл через backend-разработку на Java. Параллельно увлекался изучением вопросов дизайна языков программирования, математическими основами, которые за ними стоят... Фанат систем типов. Люблю поинтересоваться, как устроены компиляторы, работа с синтаксическими деревьями в IDE и других инструментах.
+Когда-то занимался системным программированием на C++, писал UI на Qt, прошёл через backend-разработку на Java. Параллельно увлекался изучением вопросов дизайна языков программирования, математическими основами, которые за ними стоят... Фанат систем типов. Люблю поинтересоваться, как устроены компиляторы, IDE и другие инструменты.
 
-И вот с этим опытом я пришёл во frontend-разработку. Какое-то время я просто наблюдал за развитием TypeScript, а потом решил, что всё, пора, возлагая на него определённые надежды.
+И вот с этим опытом я пришёл во frontend-разработку, возлагая на TypeScript определённые надежды. Какое-то время я просто наблюдал за его развитием, а потом решил, что всё, пора.
 -->
-
----
-layout: default
-hideInToc: true
----
-
-# План доклада
-
-<Toc text-sm minDepth="1" maxDepth="1" />
-
 ---
 layout: default
 dragPos:
@@ -103,11 +91,11 @@ dragPos:
   typing_rules: 107,214,487,_
   complex_type1: 74,206,803,_
   complex_type2: 93,309,800,_
-  mortal_combat: 251,242,450,_
+  mortal_combat: 246,223,516,_
   typescript_is_bad: 210,289,198,_
   bad_ts: 431,317,428,_
-  prototype_chain: 92,123,646,_
-  proxy: 153,322,322,_
+  prototype_chain: 462,122,381,_
+  proxy: 212,342,238,_
   devid: 572,334,271,_
   tsgo: 475,105,464,_
   tsgo_link: 33,370,439,_
@@ -157,20 +145,44 @@ dragPos:
 </v-clicks>
 
 <!--
-А в TypeScript много чего удивительного, несмотря на его кажущуюся простоту.
+Потому что в TypeScript много чего удивительного, несмотря на кажущуюся простоту.
 
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
+1.
 -->
+
+---
+layout: default
+hideInToc: true
+---
+
+# План доклада
+
+1. Проблема строгого языка
+1. Коротко про TypeScript и его систему типов
+1. Проблемы отношения подтипов в TypeScript на примерах
+1. Возможные пути решения
+1. Заключение
 
 ---
 layout: section
 ---
 
-# Желание надёжного языка
+# Проблема строгого языка
+
+В динамической среде исполнения
+
+---
+layout: default
+level: 2
+dragPos:
+  drake: 98,38,439,_
+  cwa_owa: 382,334,417,_
+  stat_dyn: 370,132,474,30
+---
+
+<img v-drag="'drake'" src="./images/drake.png" />
+<div v-drag="'stat_dyn'">Статическая/динамическая типизация</div>
+<div v-drag="'cwa_owa'">Closed/Open World Assumptions</div>
 
 ---
 level: 2
@@ -180,8 +192,9 @@ image: ./images/cwa.png
 
 # Closed World Assumption
 
-- Полная информация о поведении программы
-- Нет непредсказуемых динамических изменений в среде исполнения
+- *Полная* информация о поведении программы
+- Нет *непредсказуемых* динамических изменений в среде исполнения
+- Можно вести рассуждения об исполнении *статически*
 
 ---
 level: 2
@@ -192,23 +205,31 @@ image: ./images/owa.png
 # Open World Assumption
 
 - Динамическая загрузка модулей
+- Неявное влияние модулей друг на друга через runtime
 - Динамическое применение конфигураций
 - eval и интерпретаторы
-- Неявное влияние модулей друг на друга через runtime
 
 ---
 level: 2
 title: Проблема
-layout: statement
+layout: default
 ---
 
-**Задача**:
+## Задача
 
-- Задействовать возможности TypeScript для ужесточения языка, используя типы как **_спецификацию_**.
+<br/>
 
-**Проблема**:
+- Задействовать возможности TypeScript для ужесточения языка **прикладного кода**, используя типы как **_спецификацию_**.
+
+<v-click>
+
+## Проблема
+
+<br/>
 
 - Система типов TypeScript имеет **существенные недостатки**, не позволяющие обеспечить строгие гарантии.
+
+</v-click>
 
 <!--
 Presenter note with **bold**, *italic*, and ~~striked~~ text.
@@ -222,17 +243,40 @@ Also, HTML elements are valid:
 
 ---
 level: 2
-layout: statement
+layout: default
+---
+
+# А так хотелось рассказать...
+
+- Типы как спецификация строгих DSL
+- Зависимые типы и вычисления на типах
+- Верификация программ
+- Оптимизирующие компиляторы с информацией о типах
+- Система доказательств теорем на типах
+
+---
+level: 2
+layout: default
+dragPos:
+  dreaming_girl: 174,87,655,_
+  ocaml1: 30,324,346,_
+  ocaml2: 29,258,344,_
+---
+
+<img v-drag="'dreaming_girl'" src="./images/dreaming_girl.png" />
+<img v-drag="'ocaml1'" src="./images/ocaml1.png" />
+<img v-drag="'ocaml2'" src="./images/ocaml2.png" />
+
+---
+level: 2
+layout: default
 ---
 
 # DISCLAIMER
 
-
-Спикер не призывает к обязательному использованию TypeScript или других способов статической типизации для JavaScript.
-
-Спикер не ставит целью показать причины, по которым стоит отказаться от TypeScript.
-
-Спикер понимает, что можно писать надёжно и эффективно и на JavaScript без типов.
+- Спикер не призывает к обязательному использованию TypeScript или других способов статической типизации для JavaScript.
+- Спикер не ставит целью показать причины, по которым стоит отказаться от TypeScript.
+- Спикер понимает, что можно писать надёжно и эффективно и на JavaScript без типов.
 
 ---
 layout: section
@@ -240,17 +284,31 @@ layout: section
 
 # Коротко про TypeScript
 
+И его систему типов
 
+---
+layout: section
+---
+
+# Плюсы и минусы
+
+---
+layout: default
+dragPos:
+  ts_logo: 640,113,220,_
+  microsoft: 648,383,209,_
 ---
 
 # Коротко про TypeScript
 
 - Язык программирования
 - Синтаксис основан на JavaScript
-- Проверка типов
 - Транспиляция в JavaScript
+- Проверка типов
 - Поддержка IDE (language server)
 
+<img v-drag="'ts_logo'" src="./images/ts_logo.png" />
+<img v-drag="'microsoft'" src="./images/microsoft.png" />
 
 ---
 
@@ -273,54 +331,65 @@ layout: section
 - Борьба с ошибками компиляции
 
 ---
-foo: bar
+layout: section
+---
+
+# (Не)Надёжность
+
+---
+layout: default
+---
+
+# Надёжность системы типов TypeScript
+
+[https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
+
+**Non-goals:**
+
+- Apply a **sound**`*` or "**provably correct**" type system. Instead, strike a balance between correctness and productivity.
+
+`*` Система типов является надёжной (“**sound**”), если статически выведенные типы выражений **_гарантированно_** соответствуют значениям в runtime.
+
+---
+layout: default
+---
+
+# И как с этим жить?
+
+- Мы **_хотим_**, чтобы типы в коде были верными
+- Просто *ответственность за это ложится на разработчика*
+- Type checker - просто инструмент
+- Для обеспечения гарантий нужны *best practices* и *соглашения*
+
+---
 dragPos:
-  square: 258,376,167,_
+  first_time: 262,29,404,_
+  cpp: 442,272,54,_
 ---
 
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="657,288,261,_,22">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="533,378,236,102" two-way op70 />
+<img v-drag="'first_time'" src="./images/first_time.png" />
+<div v-drag="'cpp'" style="background-color: white;text-alignment: center">
+<b>C++</b>
+</div>
 
 ---
-src: ./pages/imported-slides.md
-hide: false
+layout: default
 ---
+
+# Ненадёжная система типовc
+
+- Намеренное нарушение надёжности
+  - any - неявное приведение к чему угодно
+  - as - потенциально ошибочные приведения типов
+  - is (type predicates) - потенциально ошибочные
+  - declare - по сути то же самое, что и as
+- Отключаемая надёжность (флаги strict)
+- Взаимодействие с JavaScript-кодом
+  - В JavaScript по-умолчанию всё any
+  - Слабо типизированная стандартная библиотека
+  - “Магия” изменяемых прототипов, Object.defineProperty, Object.freeze, Proxy, переопределение instanceof, оператор delete…
+- Врождённые проблемы в дизайне системы типов
+
 
 ---
 

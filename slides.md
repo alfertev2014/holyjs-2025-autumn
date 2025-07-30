@@ -1,11 +1,7 @@
 ---
 theme: default
-title: Переосмысляем систему типов TypeScript
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+title: Дырявое решето типов
+info: Презентация к докладу на HolyJS 2025 Autumn
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
@@ -99,6 +95,7 @@ dragPos:
   devid: 572,334,271,_
   tsgo: 475,105,464,_
   tsgo_link: 33,370,439,_
+  nothing: 501,383,308,_
 ---
 
 # Вокруг TypeScript много интересного
@@ -115,22 +112,25 @@ dragPos:
   <img v-drag="'mortal_combat'" src="./images/mortal_combat.png" />
 </div>
 <div v-click="[4, 5]">
+  <img v-drag="'prototype_chain'" src="./images/prototype_chain.png" />
+  <img v-drag="'proxy'" src="./images/proxy.png" />
+  <img v-drag="'devid'" src="./images/devid.png" />
+</div>
+<div v-click="[5, 6]">
   <img v-drag="'typescript_is_bad'" src="./images/typescript_is_bad.png" />
   <div v-drag="'bad_ts'">
     <p>Why TypeScript is Bad</p>
     <p><a href="https://t.me/why_typescript_is_bad">https://t.me/why_typescript_is_bad</a></p>
   </div>
 </div>
-<div v-click="[5, 6]">
-  <img v-drag="'prototype_chain'" src="./images/prototype_chain.png" />
-  <img v-drag="'proxy'" src="./images/proxy.png" />
-  <img v-drag="'devid'" src="./images/devid.png" />
-</div>
 <div v-click="[6, 7]">
   <img v-drag="'tsgo'" src="./images/tsgo.png" />
   <div v-drag="'tsgo_link'">
     <p><a href="https://github.com/microsoft/typescript-go">https://github.com/microsoft/typescript-go</a></p>
   </div>
+</div>
+<div v-click="7">
+  <div v-drag="'nothing'">Этого в докладе не будет</div>
 </div>
 
 <v-clicks>
@@ -483,40 +483,216 @@ layout: default
   - “Магия” изменяемых прототипов, Object.defineProperty, Object.freeze, Proxy, переопределение instanceof, оператор delete…
 - Врождённые проблемы в дизайне системы типов
 
-
+---
+layout: two-cols-header
 ---
 
-# Monaco Editor
+# Спецификация языка TypeScript
 
-Slidev provides built-in Monaco Editor support.
+::left::
 
-Add `{monaco}` to the code block to turn it into an editor:
+JavaScript имеет спецификацию:
 
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
+- ECMAScript
+- Web-стандарты
 
-const arr = ref(emptyArray(10))
+*(Язык программирования здорового человека)*
+
+::right::
+
+TypeScript не имеет спецификации:
+
+- Компилятор tsc
+- Утилитные типы
+- *.d.ts для стандартной библиотеки JS, Web API и Node.js.
+
+*(Язык программирования курильщика)*
+
+---
+layout: default
+dragPos:
+  ts_spec: 66,173,834,_
+---
+
+# Спецификация языка TypeScript
+
+[https://github.com/microsoft/TypeScript/issues/15711#issuecomment-409028030](https://github.com/microsoft/TypeScript/issues/15711#issuecomment-409028030)
+
+<img v-drag="'ts_spec'" src="./images/ts_spec.png" />
+
+---
+layout: section
+---
+
+#  Типы vs. Unit-тесты
+
+---
+layout: default
+dragPos:
+  chuck: 645,54,274,_
+---
+
+# Кто-то может сказать
+
+- “У меня в коде нет any!”
+- “У меня в коде нет as!”
+- “Я не пишу кастомных type predicates!”
+- “Я не обращаюсь к массиву по индексу без проверки!”
+- “Я врубил максимальный eslint-конфиг и strict-режим!”
+- “Все 3rd-patry библиотеки проверены и надёжны!”
+
+<v-click>
+- **“Компилируется - значит работает!” (с)**
+</v-click>
+
+<img v-click v-drag="'chuck'" src="./images/chuck.png" />
+
+---
+layout: default
+dragPos:
+  harold: 317,208,404,_
+---
+
+# Типы vs. Unit-тесты
+
+- “Я максимально гибко и точно описал типы в коде!”
+- “Зачем писать тесты? Почти всё проверяется типами!”
+
+<img v-click v-drag="'harold'" src="./images/harold.jpg" />
+
+---
+layout: section
+---
+
+# Gradual typing
+
+---
+layout: default
+dragPos:
+  lambda_cube: 262,29,404,_
+---
+
+<img v-drag="'lambda_cube'" src="./images/lambda_cube.png" />
+
+---
+layout: default
+dragPos:
+  turing_complete: 525,427,404,_
+---
+
+# Возможности системы типов TypeScript
+
+- **Структурная** типизация
+- Отношение **подтипов**
+- **Рекурсивные** типы
+- **Union** и **Intersection** типы
+- **Unit** типы (или литеральные типы)
+- **Generics** (первого порядка) с **ограничениями** сверху на параметры и **вариантностью**
+- **Условные** типы
+- **Flow typing** и **type predicates**
+
+<div v-drag="'turing_complete'">И даже не так страшно, что она <em>полная по Тьюрингу</em></div>
+
+---
+layout: default
+dragPos:
+  whats_new: 95,52,792,_
+---
+
+<img v-drag="'whats_new'" src="./images/whats_new.png" />
+
+---
+layout: section
+---
+
+# Проблемы системы типов TypeScript на примерах
+
+---
+layout: section
+---
+
+# Отношение подтипов
+
+---
+layout: default
+---
+
+<div>
+<span v-click="1">B</span>
+<span>&lt;:</span>
+<span v-click="1">A</span>
+</div>
+
+---
+layout: default
+---
+
+# Проверка отношения подтипов
+
+Актуальный тип &lt;: Ожидаемый тип
+
+---
+layout: two-cols-header
+---
+
+# Проверка отношения подтипов
+
+::left::
+
+```ts
+const b: B = {
+ foo: "the Answer",
+ bar: 42
+}
+const a: A = b
+
+let m: A = {
+ foo: "the Question"
+}
+m = b
 ```
 
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
+::right::
 
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
+```ts
+type C = {
+ a: A
+}
 
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
+const c: C = { a: a }
+c.a = b
+
+const f = (a: A) => { }
+f(b);
 ```
 
 ---
-layout: center
-class: text-center
+layout: default
+dragPos:
+  type_a: 63,96,404,_
+  type_b: 61,209,404,_
+  b_subtype_a: 683,203,79,_
 ---
 
-# Learn More
+<div v-drag="'type_a'">
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+```ts
+type A = {
+ foo: string
+}
+```
 
-<PoweredBySlidev mt-10 />
+</div>
+
+<div v-drag="'type_b'">
+
+```ts
+type B = {
+ foo: string
+ bar: number
+}
+```
+
+</div>
+
+<div v-drag="'b_subtype_a'"><em>B &lt;: A</em></div>

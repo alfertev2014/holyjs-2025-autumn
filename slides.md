@@ -41,7 +41,7 @@ hideInToc: true
 - GitHub: alfertev2014
 
 <!--
-Сперва, кто я такой. Я Василий Алфертьев, в настоящее время работаю frontend-разработчиком в компании Открытые решения, пишу на React-е, активно использую TypeScript в работе. Ничего особенного, делаю интерфейсы различных одностраничных приложений.
+Сперва, кто я такой. Я Василий Алфертьев, в настоящее время работаю frontend-разработчиком в компании Открытые решения, пишу на React-е, активно использую TypeScript. Делаю UI различных одностраничных приложений.
 -->
 
 ---
@@ -203,7 +203,7 @@ dragPos:
 <div v-drag="'cwa_owa'">Closed/Open World Assumptions</div>
 
 <!--
-И всё-таки пару слов про статическую типизацию против динамической скажу. Я предпочитаю заострять внимание немного на другом моменте.
+И всё-таки пару слов про холивар с динамической типизацией скажу. Я предпочитаю заострять внимание немного на другом моменте.
 -->
 ---
 level: 2
@@ -218,11 +218,11 @@ image: ./images/cwa.png
 - Можно вести рассуждения об исполнении *статически*
 
 <!--
-Есть в мире разработки компиляторов такой термин как Closed World Assumption или предположение о "закрытом мире". Это когда вся среда исполнения вместе с самой исполняемой программой находится под контролем, закрыта от динамических изменений, предсказуема, работает как часы. И тогда можно вести очень сложные рассуждения с сильными доказательствами, статически, ещё до запуска программы, просто глядя на код.
+Есть в мире разработки компиляторов такой термин как Closed World Assumption или предположение о "закрытом мире". Это когда вся среда исполнения вместе с самой программой находится под контролем, закрыта от динамических изменений, предсказуема, работает как часы. И тогда можно вести очень сложные рассуждения с сильными доказательствами, статически, ещё до запуска программы, просто глядя на код.
 
 Если вы разрабатываете программную систему или какой-то её фрагмент, модуль, с таким предположением, то в таких случаях хорошо заходит статическая типизация.
 
-Обычно это предположение требуется при написании прикладного кода. Потому что при разработке приложения целиком в соответствии с требованиями обычно предполагается предсказуемость всего поведения.
+Обычно это предположение требуется при написании прикладного кода. Потому что обычно в требованиях предполагается предсказуемость поведения.
 -->
 ---
 level: 2
@@ -238,13 +238,11 @@ image: ./images/owa.png
 - eval и интерпретаторы
 
 <!--
-В противовес существует Open World Assumption, это когда среда исполнения открыта для динамической загрузки кода, меняется на ходу при изменении конфигураций или, вообще, содержит реализацию интерпретатора другого языка или просто функцию eval. JavaScript-runtime именно такой.
+В противовес существует Open World Assumption, это когда среда исполнения открыта для динамической загрузки кода, меняется на ходу по тем или иным причинам или, вообще, содержит реализацию интерпретатора другого языка или просто функцию eval. JavaScript-runtime именно такой.
 
 И в таких случаях для обеспечения надёжности ничего не поделать, придётся вставлять в код динамические проверки.
 
-Обычно с Open World Assumption приходится иметь дело библиотечному коду. Библиотеки обычно не знают, в каких кейсах будут использоваться и в каком окружении исполняться. В таких случаях статическая типизация применима с большим трудом. О том, что на TypeScript трудно писать библиотечный код, был доклад на прошлом holy.
-
-Но чаще всего применяется сочетание двух предположений. Программная система может состоять из модулей. Каждый модуль сам по себе может рассматриваться закрытым, а вот код, который связывает все модули воедино, динамически загружая их в среду исполнения, предполагает открытый мир.
+Обычно в таких условиях выполняется библиотечный код. Библиотеки обычно не знают, в каких кейсах будут использоваться и в каком окружении исполняться. В таких случаях статическая типизация применима с большим трудом. О том, что на TypeScript трудно писать библиотечный код, был доклад на прошлом holy.
 -->
 ---
 level: 2
@@ -273,7 +271,7 @@ layout: default
 
 1. А проблема в том, что TypeScript как он есть для этой задачи тоже не подходит. Есть существенные недостатки в самом фундаменте системы типов, о которых мы сейчас и поговорим и подумаем, что с этим можно сделать.
 
-На момент, когда я задумался об этих проблемах и стал копать в эту сторону, я уже более трёх лет разрабатывал большие приложения на TypeScript, наивно полагая, что TypeScript ведёт себя так, как я себе представляю, не подозревая о подобных граблях. А сколько ещё может быть разработчиков, освоивших TypeScript для коммерческой разработки, которые тоже не подозревают об этих моментах. На конференциях почему-то об этом мало говорят. 
+На момент, когда я задумался об этих проблемах и стал копать в эту сторону, я уже более трёх лет разрабатывал большие приложения на TypeScript, наивно полагая, что язык ведёт себя так, как я себе представляю, не подозревая о подобных граблях. А сколько ещё может быть разработчиков, освоивших TypeScript для коммерческой разработки, которые тоже не подозревают об этих моментах. На конференциях почему-то об этом мало говорят. 
 -->
 
 ---
@@ -290,7 +288,7 @@ layout: default
 - Система доказательств теорем на типах
 
 <!--
-На самом деле, так хотелось рассказать сегодня о другом. Я думал готовить доклад на более серьёзные хардкорные темы, связанные с типизацией, рассуждением о программах, доказательсвом их корректности и использованию этих доказательств для хардкорных оптимизаций. А потом как открыл для себя, что TypeScript мягко говоря, "дырявый" в самых своих основах, и рассмотрение таких тем выглядит уже каким-то бессмысленным, на мой взгляд.
+На самом деле, так хотелось рассказать сегодня о другом. Я думал готовить доклад на более серьёзные хардкорные темы, связанные с типизацией, рассуждением о программах, доказательсвом их корректности и использованию этих доказательств для хардкорных оптимизаций. А потом как открыл для себя, что TypeScript мягко говоря, "дырявый" в самых своих основах, что рассмотрение таких тем выглядит уже каким-то бессмысленным, на мой взгляд.
 -->
 ---
 level: 2
@@ -325,7 +323,7 @@ layout: default
 
 Также, я хоть и собираюсь сейчас в докладе ругать TypeScript за его недостатки, я не призываю отказываться от него, давать кому-то лишний повод сказать, что "типы не нужны".
 
-В то же время, я понимаю, что на JavaScript можно и без типов писать надёжно и продуктивно, придерживаясь особых практик.
+В то же время, я понимаю, что на JavaScript можно и без типов писать надёжно и продуктивно, придерживаясь особых практик. Но это уже совсем другой стиль кода.
 -->
 ---
 layout: section
@@ -336,16 +334,7 @@ layout: section
 И его систему типов
 
 <!--
-Вспомним быстро, что из себя представляет TypeScript
--->
----
-layout: section
----
-
-# Плюсы и минусы
-
-<!--
-и немного про надёжность его системы типов.
+Вспомним быстро, что из себя представляет TypeScript и немного про его надёжность.
 -->
 ---
 layout: default
@@ -354,7 +343,7 @@ dragPos:
   microsoft: 648,383,209,_
 ---
 
-# Коротко про TypeScript
+# TypeScript
 
 - Язык программирования
 - Синтаксис основан на JavaScript
@@ -366,13 +355,14 @@ dragPos:
 <img v-drag="'microsoft'" src="./images/microsoft.png" />
 
 <!--
-Итак, TypeScript - это язык программирования с синтаксисом, основанным на JavaScript, он транспилируется в JavaScript с минимальными изменениями кода (в идеале - происходит просто "стирание" типов). Основной его фишкой выступает тайпчекер, выполняющий вывод и проверку типов. А также, с ним идёт language-server для поддержки языка в IDE, для автокомпилита и различных рефакторингов.
+Итак, TypeScript - это язык программирования с синтаксисом, основанным на JavaScript, он транспилируется в JavaScript с минимальными изменениями кода (в идеале - происходит просто "стирание" типов). Основной его фишкой выступает тайпчекер, выполняющий проверку и вывод типов. А также, с ним идёт language-server для поддержки языка в IDE, для автокомпилита и различных рефакторингов.
 -->
+---
+layout: image-right
+image: /images/smiling_cat.png
 ---
 
 # TypeScript хвалят за
-
-<v-clicks>
 
 - Предотвращение runtime-ошибок (TypeError)
 - Продуктивность разработки (поддержка в IDE)
@@ -380,24 +370,21 @@ dragPos:
 - Прививание хорошего стиля кода
 - Избавление от лишних проверок в runtime
 
-</v-clicks>
-
 <!--
 Собственно, мы любим TypeScript за то, что он помогает нам отлавливать ошибки типизации и повышает продуктивность при написании и редактировании кода. Код получается более самодокументированным, и сам компилятор нас вынуждает писать такой код в более строгом и ясном стиле, который получается ещё и эффективным, потому что в нём не приходится вставлять лишних runtime-проверок.
 -->
 ---
+layout: image-right
+image: /images/angry_cat.png
+---
 
 # TypeScript ругают за
-
-<v-clicks>
 
 - Ненадёжная система типов
 - Слабо типизированная стандартная библиотека JavaScript
 - Неактуальные “.d.ts”-файлы для библиотек из NPM
 - Высокий порог входа (“трёх-этажные типы”)
 - Борьба с ошибками компиляции
-
-</v-clicks>
 
 <!--
 И в то же время всем должно быть уже известно, что система типов TypeScript не надёжна, и бесшовное взаимодействие с JavaScript вызывает ещё больше проблем. 
@@ -412,13 +399,16 @@ layout: section
 
 # (Не)Надёжность
 
+<!--
+Чуть подробнее разберём надёжность, а точнее, ненадёжность языка.
+-->
 ---
 layout: default
 ---
 
 # Надёжность системы типов TypeScript
 
-[https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
+[https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals]
 
 **Non-goals:**
 
@@ -427,9 +417,9 @@ layout: default
 `*` Система типов является надёжной (“**sound**”), если статически выведенные типы выражений **_гарантированно_** соответствуют значениям в runtime.
 
 <!--
-Надёжность (по английски термин звучит как soundness) - это свойство системы типов, при котором выведенные типы гарантированно соответствуют тем значениям, которые будут получены в результате исполнения программы. Так вот, в такой строгой формулировке надёжность не заявляется как одна из целей при разработке TypeScript, как написано в проекте на GitHub-е. Вместо этого TypeScript стремится быть всего лишь инструментом для повышения продуктивности при работе с JavaScript. Насколько это разумное решение, мне сложно сказать. Вероятно, в противном случае TypeScript не получил бы такое распространение.
+Надёжность (по английски термин звучит как soundness) - это свойство системы типов, при котором выведенные типы гарантированно соответствуют тем значениям, которые будут получены в результате исполнения программы.
 
-Во всяком случае, мы имеем ненадёжный язык. Как писать-то теперь на нём?
+Так вот, в такой строгой формулировке надёжность не заявляется как цель при разработке TypeScript. Вместо этого TypeScript стремится быть всего лишь инструментом для повышения продуктивности при работе с JavaScript. Насколько это разумное решение, мне сложно сказать. Вероятно, в противном случае TypeScript не получил бы такого распространения.
 -->
 ---
 layout: default
@@ -451,9 +441,9 @@ layout: default
 
 Просто ответственность за обеспечение корректности программ ложится на самих разработчиков.
 
-А тайпчекер нам это гарантировать не сможет, это всего лишь инструмент, который нам может в этом помочь.
+А тайпчекер нам это гарантировать не сможет, это всего лишь инструмент, который нам может в этом как-то помочь.
 
-И для решения этой проблемы придётся дополнительно придерживаться определённых соглашений и best practices.
+И для обеспечения корректности программ придётся дополнительно придерживаться определённых соглашений и best practices.
 -->
 ---
 dragPos:
@@ -495,9 +485,9 @@ layout: default
 Говоря про ненадёжность системы типов, стоит понимать, что ненадёжность бывает разной: иногда более опасной, а иногда вполне безобидной. Я поделил возможные причины ненадёжности на несколько групп.
 
 1. Во-первых, это случаи намеренного нарушения надёжности, когда программист сам в коде пишет, что хочет нарушить обычный ход алгоритма проверки типов.
-2. Во-вторых, вспомним, что у компилятора TypeScript в tsconfig есть много флагов, влияющих на строгость языка, которые программист тоже может отключить. И вообще, для каждой комбинации таких флагов мы как бы получаем свою вариацию языка со своей семантикой.
-3. Третья группа причин ненадёжности, это, конечно же, JavaScript по соседству. Бесшовное взаимодействие с JavaScript настолько бесшовное, что отсутствуют какие-либо проверки на границе двух языков. И TypeScript по-умолчанию воспринимает JavaScript-код как проверенный программистом.
-4. Все три группы причин ненадёжности предполагают, что программист в курсе про них, и может держать их под своим контролем, чтобы не допускать ошибок. Но есть такие проблемы системы типов, которые могут присутствовать в коде незаметно, и связаны с врождёнными проблемами в дизайне языка. Многие из этих проблем давно известны и обсуждаются на GutHub-е, но их не исправляют по причине обратной совместимости. Видимо, сейчас если что-то переделывать по уму, то это будет существенной переработкой языка, и сломается половина NPM.
+2. Во-вторых, вспомним, что у компилятора TypeScript в tsconfig есть много флагов, влияющих на строгость языка, которые тоже можно отключить. И вообще, для каждой комбинации таких флагов мы как бы получаем новую вариацию языка со своей семантикой.
+3. Третья группа причин ненадёжности, это, конечно же, JavaScript по соседству. Бесшовное взаимодействие с JavaScript настолько бесшовное, что отсутствуют какие-либо проверки на границе двух языков. И TypeScript по-умолчанию воспринимает JavaScript-код как проверенный программистом. При этом сама стандартная библиотека местами типизирована довольно жёстко и неудобно.
+4. Первые три группы причин ненадёжности предполагают, что программист может относительно легко проследить за ними в коде, держать под контролем, чтобы не допускать ошибок. Но есть такие проблемы системы типов, которые могут присутствовать в коде незаметно, и связаны с врождёнными проблемами в дизайне языка. Многие из этих проблем давно известны и обсуждаются на GutHub-е, но их не исправляют по причине обратной совместимости. Видимо, сейчас если что-то переделывать по уму, то это будет существенной переработкой языка, и сломается половина NPM.
 -->
 ---
 layout: two-cols-header
@@ -525,14 +515,8 @@ TypeScript не имеет спецификации:
 *(Язык программирования курильщика)*
 
 <!--
-Усугубляет всё то, что у TypeScript нет спецификации. Есть лишь исходники компилятора tsc, типы стандартной библиотеки и declaration-файлы для различных Web API и Node.js.
+Усугубляет всё то, что у TypeScript нет спецификации. Есть лишь исходники компилятора tsc, типы стандартной библиотеки и declaration-файлы для различных Web API и Node.js. Не буду сейчас останавливаться, к каким проблемам приводит этот факт.
 -->
----
-layout: section
----
-
-#  Типы vs. Unit-тесты
-
 ---
 layout: default
 dragPos:
@@ -549,15 +533,20 @@ dragPos:
 - “Все 3rd-patry библиотеки проверены и надёжны!”
 
 <v-click>
+
 - **“Компилируется - значит работает!” (с)**
+
 </v-click>
 
 <img v-click v-drag="'chuck'" src="./images/chuck.png" />
 
+<!--
+Всё-таки есть желание повысить надёность программ снижением шансов нарушения типовой безопасности. Например, гарантировать, что мы не пишем в коде any, не используем as, не делаем никаких непроверенных операций, врубаем на максимум eslint и strict-режим, обязательно проверяем все сторонние библиотеки перед использованием. И такие... можем сказать: Компилируется - значит, работает! И тестировать не надо - сразу в продакшн. Звучит всё, как цитаты Чака Норриса. Ага, Чак Норрис, только глядя на код, решает в уме проблему останова программы.
+-->
 ---
 layout: default
 dragPos:
-  harold: 317,208,404,_
+  harold: 245,195,490,_
 ---
 
 # Типы vs. Unit-тесты
@@ -565,21 +554,17 @@ dragPos:
 - “Я максимально гибко и точно описал типы в коде!”
 - “Зачем писать тесты? Почти всё проверяется типами!”
 
-<img v-click v-drag="'harold'" src="./images/harold.jpg" />
+<img v-drag="'harold'" src="./images/harold.jpg" />
+
+<!--
+Я же чувствую себя примерно вот так, когда говорю, что можно не писать тесты, если типы и так всё проверяют. И давайте разберём, почему.
+-->
 
 ---
 layout: section
 ---
 
-# Gradual typing
-
----
-layout: default
-dragPos:
-  lambda_cube: 262,29,404,_
----
-
-<img v-drag="'lambda_cube'" src="./images/lambda_cube.png" />
+# Проблемы системы типов TypeScript на примерах
 
 ---
 layout: default
@@ -601,34 +586,26 @@ dragPos:
 <div v-drag="'turing_complete'">И даже не так страшно, что она <em>полная по Тьюрингу</em></div>
 
 ---
-layout: default
-dragPos:
-  whats_new: 95,52,792,_
----
-
-<img v-drag="'whats_new'" src="./images/whats_new.png" />
-
----
-layout: section
----
-
-# Проблемы системы типов TypeScript на примерах
-
----
 layout: section
 ---
 
 # Отношение подтипов
 
 ---
-layout: default
+layout: section
 ---
 
-<div>
+<h1>
 <span v-click="1">B</span>
 <span>&lt;:</span>
 <span v-click="1">A</span>
-</div>
+</h1>
+
+---
+layout: default
+---
+
+<img src="./images/subset.svg" />
 
 ---
 layout: default
@@ -683,23 +660,644 @@ dragPos:
 
 <div v-drag="'type_a'">
 
+````md magic-move
 ```ts
 type A = {
- foo: string
+  foo: string
 }
 ```
+```ts
+type A = {
+  foo: string | number
+}
+```
+````
 
 </div>
 
 <div v-drag="'type_b'">
 
+````md magic-move
 ```ts
 type B = {
- foo: string
- bar: number
+  foo: string
+  bar: number
 }
 ```
+```ts
+type B = {
+  foo: string
+}
+```
+````
 
 </div>
 
 <div v-drag="'b_subtype_a'"><em>B &lt;: A</em></div>
+
+---
+layout: image
+image: /images/ts_grid.svg
+---
+
+---
+layout: image
+image: /images/pepe.png
+---
+
+---
+layout: image
+image: /images/set.svg
+---
+
+---
+layout: image
+image: /images/suborder.svg
+---
+
+---
+layout: image
+image: /images/sup_inf.svg
+---
+
+---
+layout: image
+image: /images/union_intersection.svg
+---
+
+---
+layout: default
+---
+
+# Type compatibility
+
+[https://www.typescriptlang.org/docs/handbook/type-compatibility.html#subtype-vs-assignment]
+
+В TypeScript различаются понятия **subtype**- и **assignment**-совместимости типов. Например:
+
+- Поведение **any** при присваивании
+- Проверка лишних properties при инициализации
+- Проверка **readonly**-полей при присваивании
+
+---
+layout: two-cols-header
+---
+
+# Чем плох тип any?
+
+::left::
+
+При записи в него ведёт себя, как **unknown**
+
+```ts
+const b: number = 42
+
+const a: any = b
+```
+
+::right::
+
+При чтении из него ведёт себя, как **never** (почти)
+
+```ts
+const a: any = 42
+
+const b: string = a
+```
+
+---
+layout: default
+dragPos:
+  playground_options: 613,130,193,_
+---
+
+# Поиграемся в TypeScript Playground
+
+- [https://www.typescriptlang.org/play/]
+- **v5.8.3**
+
+<img src="./images/playground.png" />
+<img v-drag="'playground_options'" src="./images/playground_options.png" />
+
+---
+layout: default
+---
+
+````md magic-move
+```ts
+const a1: {} = 42
+const a2: {} = "the Answer"
+const a3: {} = true
+const a4: {} = false
+const a5: {} = {}
+const a6: {} = []
+const a7: {} = () => {}
+
+const a8: {} = null
+const a9: {} = undefined
+```
+```ts
+const a1: object = 42
+const a2: object = "the Answer"
+const a3: object = true
+const a4: object = false
+const a5: object = {}
+const a6: object = []
+const a7: object = () => {}
+
+const a8: object = null
+const a9: object = undefined
+```
+```ts
+const a1: {
+   toLocaleString: () => string;
+} = 42;
+
+const a2: {
+   codePointAt(pos: number): number | undefined;
+   charAt: (pos: never) => unknown;
+   // ...
+} = "the Answer";
+
+const a3: {
+   valueOf: () => boolean;
+} = true;
+```
+````
+
+[https://typescript-eslint.io/rules/no-empty-object-type/]
+
+---
+layout: section
+---
+
+# Excess properties
+
+---
+layout: default
+---
+
+````md magic-move
+```ts
+type A = {
+   a: string
+}
+
+const a: A = { a: "string", foo: "bar" }
+```
+```ts
+type A = {
+   a: string
+}
+
+const b = { a: "string", foo: "bar" }
+const a: A = b
+```
+````
+
+---
+layout: default
+---
+
+# Что есть объектный тип?
+
+````md magic-move
+```ts
+type Struct = {
+ a: string
+ b: boolean
+ c: number
+}
+```
+```ts
+type Struct = {
+ a: string
+ b: boolean
+ c: number
+ [key: string | number | symbol]: unknown
+}
+```
+```ts
+type Struct = {
+ a: string
+ b: boolean
+ c: number
+ [key: string | number | symbol]: unknown
+ (...args: unknown[]): unknown
+}
+```
+```ts
+type Struct = {
+ a: string
+ b: boolean
+ c: number
+ [key: string | number | symbol]: unknown
+ (...args: unknown[]): unknown
+ new (...args: unknown[]): unknown
+}
+```
+````
+
+---
+layout: default
+---
+
+```ts
+type A = { a: string }
+type B = { a: string; foo: number }  // B <: A
+type C = { a: string; foo: boolean }  // C <: A
+```
+
+---
+layout: default
+---
+
+```ts
+const b: B = { a: "b", foo: 42 }
+const c: C = { a: "c", foo: true }
+
+const ac: A = c
+
+const bac: B = { ...b, ...ac }
+
+console.log(bac.foo.toFixed())
+```
+
+---
+layout: default
+---
+
+[https://github.com/microsoft/TypeScript/issues/12936]
+
+<img src="./images/exact_types.png" />
+
+---
+layout: default
+---
+
+# А ещё
+
+TypeScript не различает и не учитывает:
+
+- **own** properties
+- **enumerable** properties
+- **configurable** properties (можно ли удалять через `delete`)
+- `value`, `writable`, `get`, `set`
+- `Object.freeze`
+
+---
+layout: section
+---
+
+# Подтипы и вариантность
+
+---
+layout: default
+---
+
+```ts
+type A = { a: string | boolean }
+type B = { a: string }
+
+const b: B = { a: "foo" }
+const a: A = b
+a.a = true
+console.log("b.a", b.a.toUpperCase())
+```
+
+---
+layout: default
+---
+
+Если
+
+```
+string <: string | boolean
+```
+
+то следует ли из этого
+
+```
+{ a: string } <: { a: string | boolean }
+```
+
+???
+
+---
+layout: default
+---
+
+Ковариантность типа `C<T>` по параметру `Т`:
+
+```
+B <: A  ===>  C<B> <: C<A>
+```
+
+Контравариантность типа `C<T>` по параметру `Т`:
+
+```
+B :> A  ===>  C<B> <: C<A>
+```
+
+---
+layout: default
+transition: slide-up
+---
+
+```ts
+type FA = {
+ getA: () => string | boolean
+ setA: (arg: string | boolean) => string | boolean
+}
+
+type FB = {
+ getA: () => string
+ setA: (arg: string) => string
+}
+```
+
+---
+layout: default
+transition: none
+---
+
+```ts
+// ...
+let _a: string = "foo"
+const fb: FB = { getA: () => _a, setA: (arg) => _a = arg }
+const fa: FA = fb
+fa.setA(true)
+```
+
+```
+Type 'FB' is not assignable to type 'FA'.
+ Types of property 'setA' are incompatible.
+   Type '(arg: string) => string' is not assignable to type '(arg: string | boolean) => string | boolean'.
+     Types of parameters 'arg' and 'arg' are incompatible.
+       Type 'string | boolean' is not assignable to type 'string'.
+         Type 'boolean' is not assignable to type 'string'.(2322)
+```
+
+---
+layout: two-cols
+---
+
+# strictFunctionTypes
+
+<br />
+
+Включает **контравариантное** поведение функциональных типов **по аргументам**.
+
+```
+T2 :> T1, R2 <: R1  ===>  (a: T2) => R2 <: (a: T1) => R1
+```
+
+::right::
+
+<img src="./images/strict_function_types.png" />
+
+---
+layout: default
+---
+
+# strictFunctionTypes и методы
+
+<br />
+
+[https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
+
+During development of this feature, *we discovered a large number of inherently unsafe class hierarchies*, including some in the DOM. Because of this, the setting only applies to functions written in function syntax, **not to those in method syntax**
+
+---
+layout: default
+---
+
+````md magic-move
+```ts
+type Methodish = {
+ func(x: string | number): void
+}
+function fn(x: string) {
+ console.log("Hello, " + x.toLowerCase())
+}
+ 
+// Ultimately an unsafe assignment, but not detected
+const m: Methodish = {
+ func: fn,
+}
+m.func(10)
+```
+```ts
+type Methodish = {
+ func: (x: string | number) => void
+}
+function fn(x: string) {
+ console.log("Hello, " + x.toLowerCase())
+}
+
+const m: Methodish = {
+ func: fn,
+}
+m.func(10)
+/*
+Type '(x: string) => void' is not assignable to type '(x: string | number) => void'.
+ Types of parameters 'x' and 'x' are incompatible.
+   Type 'string | number' is not assignable to type 'string'.
+     Type 'number' is not assignable to type 'string'.(2322)
+*/
+```
+````
+
+---
+layout: section
+---
+
+# readonly
+
+---
+layout: default
+dragPos:
+  readonly: 143,378,352,_
+  captain: 443,44,443,_
+---
+
+```ts
+type A = { a: string | boolean }
+type B = { readonly a: string }
+
+const b: B = { a: "foo" }
+const a: A = b
+a.a = true
+console.log("b.a", b.a.toUpperCase())
+```
+
+<div v-drag="'readonly'" v-click.hide="1">
+
+Да просто влепи **readonly**!
+
+</div>
+
+<img v-drag="'captain'" v-click.hide="1" src="./images/captain.png" />
+
+---
+layout: default
+transition: slide-up
+---
+
+# Пример из Handbook
+
+[https://www.typescriptlang.org/docs/handbook/2/objects.html#readonly-properties]
+
+```ts
+interface Person {
+ name: string;
+ age: number;
+}
+
+interface ReadonlyPerson {
+ readonly name: string;
+ readonly age: number;
+}
+```
+
+---
+layout: default
+transition: slide-up
+---
+
+```ts
+let writablePerson: Person = {
+ name: "Person McPersonface",
+ age: 42,
+};
+
+// works
+let readonlyPerson: ReadonlyPerson = writablePerson;
+
+console.log(readonlyPerson.age); // prints '42'
+writablePerson.age++;
+console.log(readonlyPerson.age); // prints '43'
+```
+
+---
+layout: default
+transition: slide-up
+---
+
+```ts
+// also works
+writablePerson = readonlyPerson;
+```
+
+TypeScript doesn’t factor in whether properties on two types are `readonly` when checking whether those types are compatible, so `readonly` properties **can also change via aliasing**.
+
+---
+layout: default
+transition: none
+---
+
+```ts
+const readonlyPerson: ReadonlyPerson = {
+ name: "Person McPersonface",
+ age: 42,
+};
+
+console.log(readonlyPerson.age); // prints '42'
+
+const writablePerson: Person = readonlyPerson;
+writablePerson.age++;
+
+console.log(readonlyPerson.age); // prints '43'
+```
+
+---
+layout: default
+---
+
+# "readonly modifiers are a joke"
+
+[https://github.com/Microsoft/TypeScript/issues/13002]
+
+<img src="./images/readonly1.png" />
+<img src="./images/readonly2.png" />
+
+[https://github.com/Microsoft/TypeScript/issues/13347]
+
+<img src="./images/readonly3.png" />
+
+---
+layout: section
+---
+
+# Sometimes function is just a Function
+
+---
+layout: default
+---
+
+# Подтипы у функций
+
+```ts
+(a: string, b: boolean, c: number) => unknown
+(a: string, b: boolean) => unknown
+(a: string) => unknown
+() => unknown
+(a?: string) => unknown
+(a?: string, b?: boolean) => unknown
+(a?: string, b?: boolean, c?: number) => unknown
+```
+
+---
+layout: default
+---
+
+# Подтипы у функций и опциональные параметры
+
+```ts
+() => unknown
+(a?: string) => unknown
+(a?: string, b?: boolean) => unknown
+(a?: string, b?: boolean, c?: number) => unknown
+```
+
+---
+layout: default
+---
+
+```ts
+const a = (x?: number) => x?.toFixed();
+
+const b: () => void            = a;
+
+const c: (s?: string) => void  = b;
+
+c("");
+```
+
+---
+layout: default
+---
+
+```ts
+type A = { a: string }
+type B = { a: string, foo?: boolean }
+type C = { a: string, foo?: number }
+
+const b: B = { a: "boo", foo: false }
+const a: A = b
+const c: C = a
+
+console.log("c.foo", c.foo?.toFixed())
+```
+
+---
+layout: default
+---
+
+# Pain points
+
+- Нарушение вариантности при изменяемых properties
+- Отсутствие точных типов (без лишних properties)
+- readonly не учитывается в отношении подтипов
+- Есть readonly-массивы и кортежи, но нет readonly-объектов
+- Опциональные аргументы и properties нарушают отношение подтипов

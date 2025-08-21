@@ -855,6 +855,12 @@ const a: A = b
 ```
 ````
 
+<v-click>
+
+[https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks]
+
+</v-click>
+
 ---
 layout: default
 ---

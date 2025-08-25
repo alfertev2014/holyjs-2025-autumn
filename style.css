@@ -1,9 +1,11 @@
 :root {
   font-size: 20px;
+  --slidev-code-font-size: 16px;
 }
 
 .slidev-layout h1 {
   font-weight: 800;
+  font-size: 2rem;
 }
 
 .slidev-layout li {

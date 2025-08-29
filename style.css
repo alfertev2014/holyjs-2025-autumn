@@ -31,3 +31,10 @@
 li.slidev-vclick-current {
   font-weight: 800;
 }
+
+.two-cols-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 40px;
+}

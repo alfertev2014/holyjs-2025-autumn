@@ -30,12 +30,9 @@ hideInToc: true
 # Приятно познакомиться
 
 <style>
-.two-cols-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center; row-gap: 20px;
-  column-gap: 40px;
-}
+  .two-cols-grid {
+    align-items: center;
+  }
 </style>
 <br />
 <div class="two-cols-grid">
@@ -107,14 +104,14 @@ dragPos:
   typing_rules: 101,161,324,_
   typing_rules2: 80,393,392,_
   complex_types: 9,190,962,_
-  mortal_combat: 242,246,576,_
-  typescript_is_bad: 729,129,198,_
-  bad_ts: 546,336,384,_
-  prototype_chain: 69,293,581,_
-  proxy: 660,109,276,_
-  devid: 662,305,243,_
-  tsgo: 538,116,410,_
-  tsgo_link: 98,379,439,_
+  mortal_combat: 255,251,509,_
+  typescript_is_bad: 700,145,198,_
+  bad_ts: 514,343,384,_
+  prototype_chain: 60,314,552,_
+  proxy: 654,99,276,_
+  devid: 654,299,243,_
+  tsgo: 473,161,429,_
+  tsgo_link: 478,100,435,_
   nothing: 334,394,603,_
   nothing1: 77,244,369,20,-48
   nothing2: 78,244,372,20,46
@@ -209,7 +206,7 @@ hideInToc: true
 
 1. Проблема строгого языка
 1. Коротко про TypeScript и его систему типов
-1. Проблемы отношения подтипов в TypeScript на примерах
+1. Отношение подтипов в TypeScript
 1. Возможные пути решения
 1. Заключение
 
@@ -356,11 +353,11 @@ layout: default
 level: 2
 layout: default
 dragPos:
-  dreaming_girl: 143,147,657,_
-  ocaml1: 34,245,546,_
-  ocaml2: 30,380,600,_
-  want_ocaml: -13,3,376,179
-  unit_tests: 610,2,376,183
+  dreaming_girl: 209,180,521,_
+  ocaml1: 32,128,418,_
+  ocaml2: 29,307,467,_
+  want_ocaml: 11,25,376,179
+  unit_tests: 590,23,376,183
 ---
 
 <img v-drag="'dreaming_girl'" src="./images/dreaming_girl.png" />
@@ -403,7 +400,7 @@ class: text-center
 layout: section
 ---
 
-# Коротко про TypeScript
+# 2. Коротко про TypeScript
 
 и его систему типов
 
@@ -474,7 +471,6 @@ dragPos:
 </div>
 </div>
 
-
 <!--
 И в то же время всем должно быть уже известно, что система типов TypeScript не надёжна, и бесшовное взаимодействие с JavaScript вызывает ещё больше проблем. 
 
@@ -482,6 +478,14 @@ dragPos:
 
 Кстати, обещаю, в все примеры в этом докладе будут простые, даже generic-ов не будет.
 -->
+
+---
+layout: default
+---
+
+<div>
+<img src="./images/kafka.png" style="width: 80%; margin: auto" />
+</div>
 
 ---
 layout: section
@@ -513,18 +517,34 @@ layout: default
 -->
 ---
 layout: default
+dragPos:
+  house_of_cards: 377,121,512,_
 ---
+
+<style>
+  p {
+    background-color: #ffffffcc;
+  }
+</style>
 
 # И как с этим жить?
 
+<img src="./images/house_of_cards.png" style="position: absolute; z-index: -100; right: 0; bottom: 0; width: 512px; opacity: 0.5" />
+
+<br />
+<div style="text-align: center; font-size: 1.5rem">
 <v-clicks>
 
-- Мы **_хотим_**, чтобы типы в коде были верными
-- *Ответственность за это ложится на разработчика*
-- Type checker - просто инструмент
-- Для обеспечения гарантий нужны *best practices* и *соглашения*
+Мы **_хотим_**, чтобы типы в коде были верными
+
+*Ответственность ложится на разработчика*
+
+Type checker - просто инструмент
+
+Для гарантий нужны *best practices* и *соглашения*
 
 </v-clicks>
+</div>
 
 <!--
 Что теперь нам делать с этим? Ведь несмотря на ненадёжность языка, мы хотим, чтобы те типы, которые мы пишем в коде, действительно соответствовали тем значениям, которые получаются при его исполнении. Иначе, зачем мы их тогда пишем?
@@ -535,14 +555,16 @@ layout: default
 
 И для обеспечения корректности программ придётся дополнительно придерживаться определённых соглашений и best practices.
 -->
+
 ---
+layout: default
 dragPos:
   first_time: 262,29,404,_
   cpp: 442,272,54,_
 ---
 
 <img v-drag="'first_time'" src="./images/first_time.png" />
-<div v-drag="'cpp'" style="background-color: white;text-alignment: center">
+<div v-drag="'cpp'" style="background-color: white;text-align: center">
 <b>C++</b>
 </div>
 
@@ -553,30 +575,62 @@ dragPos:
 
 Но, как говорится, языки программирования делятся на два типа: те, которые все ругают, и те, которые никто не использует.
 -->
+
 ---
 layout: default
+dragPos:
+  good: 666,90,166,187
+  back: 132,225,176,214
+  backward_compatibility: 117,47,744,_
+  ts: 395,111,126,_
 ---
 
 # Ненадёжная система типов
 
+<style>
+  .slidev-vclick-hidden {
+    display: none;
+  }
+  li.slidev-vclick-hidden {
+    display: list-item;
+    opacity: 0.5 !important;
+  }
+  li .slidev-vclick-target {
+    font-weight: normal
+  }
+</style>
 <ul>
-<li>Намеренное нарушение надёжности
-  <ul vlick="[1, 2]">
-  <li>any - неявное приведение к чему угодно</li>
-  <li>as - потенциально ошибочные приведения типов</li>
-  <li>is (type predicates) - потенциально ошибочные</li>
-  <li>declare - по сути то же самое, что и as</li>
+<li v-click="1">Намеренное нарушение надёжности
+  <ul v-click="[1, 2]">
+  <li><code>any</code> - неявное приведение к чему угодно</li>
+  <li><code>as</code> - потенциально ошибочные приведения типов</li>
+  <li><code>is</code> - потенциально ошибочные type predicates</li>
+  <li><code>declare</code> - по сути то же самое, что и <code>as</code></li>
   </ul>
 </li>
-<li>Отключаемая надёжность (флаги strict)</li>
-<li>Взаимодействие с JavaScript-кодом
+<li v-click="2">Отключаемая надёжность (флаги "strict")</li>
+  <img v-click="[2, 3]" src="./images/typechecking_options.png" style="width: 100%" />
+<li v-click="3">Взаимодействие с JavaScript-кодом
   <ul v-click="[3, 4]">
-  <li>В JavaScript по-умолчанию всё any</li>
+  <li>В JavaScript по-умолчанию всё <code>any</code></li>
   <li>Слабо типизированная стандартная библиотека</li>
   <li>“Магия” изменяемых прототипов, Object.defineProperty, Object.freeze, Proxy, переопределение instanceof, оператор delete…</li>
  </ul>
-<li>Врождённые проблемы в дизайне системы типов</li>
+</li>
+<li v-click="4">Врождённые проблемы в дизайне системы типов</li>
 </ul>
+
+<v-click at="5">
+  <img v-drag="'backward_compatibility'" src="./images/backward_compatibility.jpg" />
+  <div v-drag="'good'" style="text-align: right; font-size: 1.7rem">
+    <b>Сделать всё по хорошему</b>
+  </div>
+  <div v-drag="'back'" style="font-size: 1.7rem">
+    <b>Обратная совмести-мость</b>
+  </div>
+  <img v-drag="'ts'" src="./images/ts_logo.png" />
+</v-click>
+
 <!--
 Говоря про ненадёжность системы типов, стоит понимать, что ненадёжность бывает разной: иногда более опасной, а иногда вполне безобидной. Я поделил возможные причины ненадёжности на несколько групп.
 
@@ -585,30 +639,42 @@ layout: default
 3. Третья группа причин ненадёжности, это, конечно же, JavaScript по соседству. Бесшовное взаимодействие с JavaScript настолько бесшовное, что отсутствуют какие-либо проверки на границе двух языков. И TypeScript по-умолчанию воспринимает JavaScript-код как проверенный программистом. При этом сама стандартная библиотека местами типизирована довольно жёстко и неудобно.
 4. Первые три группы причин ненадёжности предполагают, что программист может относительно легко проследить за ними в коде, держать под контролем, чтобы не допускать ошибок. Но есть такие проблемы системы типов, которые могут присутствовать в коде незаметно, и связаны с врождёнными проблемами в дизайне языка. Многие из этих проблем давно известны и обсуждаются на GutHub-е, но их не исправляют по причине обратной совместимости. Видимо, сейчас если что-то переделывать по уму, то это будет существенной переработкой языка, и сломается половина NPM.
 -->
+
 ---
 layout: two-cols-header
 ---
 
 # Спецификация языка TypeScript
 
-::left::
+<div class="two-cols-grid" style="align-items: start">
+<div>
 
 JavaScript имеет спецификацию:
 
 - ECMAScript
 - Web-стандарты
 
-*(Язык программирования здорового человека)*
+</div>
+<div>
 
-::right::
-
-TypeScript не имеет спецификации:
+**TypeScript не имеет спецификации**:
 
 - Компилятор tsc
 - Утилитные типы
 - *.d.ts для стандартной библиотеки JS, Web API и Node.js.
 
+</div>
+<div v-click="1" style="text-align: center">
+
+*(Язык программирования здорового человека)*
+
+</div>
+<div v-click="1" style="text-align: center">
+
 *(Язык программирования курильщика)*
+
+</div>
+</div>
 
 <!--
 Усугубляет всё то, что у TypeScript нет спецификации. Есть лишь исходники компилятора tsc, типы стандартной библиотеки и declaration-файлы для различных Web API и Node.js. Не буду сейчас останавливаться, к каким проблемам приводит этот факт.
@@ -639,10 +705,11 @@ dragPos:
 <!--
 Всё-таки есть желание повысить надёность программ снижением шансов нарушения типовой безопасности. Например, гарантировать, что мы не пишем в коде any, не используем as, не делаем никаких непроверенных операций, врубаем на максимум eslint и strict-режим, обязательно проверяем все сторонние библиотеки перед использованием. И такие... можем сказать: Компилируется - значит, работает! И тестировать не надо - сразу в продакшн. Звучит всё, как цитаты Чака Норриса. Ага, Чак Норрис, только глядя на код, решает в уме проблему останова программы.
 -->
+
 ---
 layout: default
 dragPos:
-  harold: 245,195,490,_
+  harold: 275,209,465,_
 ---
 
 # Типы vs. Unit-тесты
@@ -660,12 +727,12 @@ dragPos:
 layout: section
 ---
 
-# Проблемы системы типов TypeScript на примерах
+# 3. Отношение подтипов в TypeScript
 
 ---
 layout: default
 dragPos:
-  turing_complete: 525,427,404,_
+  turing_complete: 485,147,404,_
 ---
 
 # Возможности системы типов TypeScript
@@ -679,7 +746,7 @@ dragPos:
 - **Условные** типы
 - **Flow typing** и **type predicates**
 
-<div v-drag="'turing_complete'">И даже не так страшно, что она <em>полная по Тьюрингу</em></div>
+<div v-click v-drag="'turing_complete'"><em>(И даже не так страшно, что она <b>полная по Тьюрингу</b>)</em></div>
 
 ---
 layout: section
@@ -691,17 +758,63 @@ layout: section
 layout: section
 ---
 
-<h1>
-<span v-click="1">B</span>
-<span>&lt;:</span>
+<h1><b>
+<span v-click="1">B</span>&nbsp;
+<span>&lt;:</span>&nbsp;
 <span v-click="1">A</span>
-</h1>
+</b></h1>
 
 ---
 layout: default
 ---
 
-<img src="./images/subset.svg" />
+<img v-drag="[142,77,594,408]" src="./images/subset.svg" />
+
+---
+layout: default
+dragPos:
+  subtyping_set: 412,112,337,260
+---
+
+# Пересечение и объединение типов
+
+<br />
+
+- `A <: A | B`
+- `B <: A | B`
+
+<br />
+
+- `A & B <: A`
+- `A & B <: B`
+
+<img v-drag="'subtyping_set'" src="./images/subtyping_set.svg" />
+
+---
+layout: default
+---
+
+# Подтипы объектов
+
+<div class="two-cols-grid" style="align-items: center">
+<div>
+
+```ts {all|2,6|7}
+type A = {
+  foo: string
+}
+
+type B = {
+  foo: string
+  bar: number
+}
+```
+
+</div>
+<div class="text-center" style="font-size: 2rem">
+<b>B &lt;: A</b>
+</div>
+</div>
 
 ---
 layout: default
@@ -709,17 +822,10 @@ layout: default
 
 # Проверка отношения подтипов
 
-Актуальный тип &lt;: Ожидаемый тип
+<div class="two-cols-grid">
+<div>
 
----
-layout: two-cols-header
----
-
-# Проверка отношения подтипов
-
-::left::
-
-```ts
+```ts {all|5,10}{at:1}
 const b: B = {
  foo: "the Answer",
  bar: 42
@@ -732,9 +838,10 @@ let m: A = {
 m = b
 ```
 
-::right::
+</div>
+<div>
 
-```ts
+```ts {all|6,9}{at:1}
 type C = {
  a: A
 }
@@ -746,55 +853,55 @@ const f = (a: A) => { }
 f(b);
 ```
 
+</div>
+</div>
+
+<p v-click="2" class="text-center">
+  <b>Актуальный тип &lt;: Ожидаемый тип</b>
+</p>
+
 ---
 layout: default
-dragPos:
-  type_a: 63,96,404,_
-  type_b: 61,209,404,_
-  b_subtype_a: 683,203,79,_
 ---
 
-<div v-drag="'type_a'">
+# Подтипы объектов
 
-````md magic-move
-```ts
-type A = {
-  foo: string
-}
-```
-```ts
+<div class="two-cols-grid" style="align-items: center">
+<div>
+
+```ts {all|2,6}
 type A = {
   foo: string | number
 }
-```
-````
 
-</div>
-
-<div v-drag="'type_b'">
-
-````md magic-move
-```ts
-type B = {
-  foo: string
-  bar: number
-}
-```
-```ts
 type B = {
   foo: string
 }
 ```
-````
 
 </div>
-
-<div v-drag="'b_subtype_a'"><em>B &lt;: A</em></div>
+<div class="text-center" style="font-size: 2rem">
+<b>B &lt;: A <span v-click>?</span></b>
+</div>
+</div>
 
 ---
-layout: image
-image: /images/ts_grid.svg
+layout: section
 ---
+
+# Решётка типов
+
+---
+layout: default
+---
+
+<img src="./images/grid_of_objects.svg" style="width:100%" />
+
+---
+layout: default
+---
+
+<img src="./images/grid_of_types.svg" style="width:100%" />
 
 ---
 layout: image
@@ -831,56 +938,68 @@ layout: default
 
 В TypeScript различаются понятия **subtype**- и **assignment**-совместимости типов. Например:
 
-- Поведение **any** при присваивании
-- Проверка лишних properties при инициализации
-- Проверка **readonly**-полей при присваивании
+- Поведение `any` при присваивании
+- Проверка лишних (excess) properties при инициализации
+- Проверка `readonly`-полей при присваивании
 
 ---
-layout: two-cols-header
+layout: default
 ---
 
 # Чем плох тип any?
 
-::left::
+<div class="two-cols-grid">
 
-При записи в него ведёт себя, как **unknown**
+<div>
 
-```ts
+При записи - как `unknown`
+
+```ts {all|3}{at:1}
 const b: number = 42
 
 const a: any = b
 ```
 
-::right::
+</div>
+<div>
 
-При чтении из него ведёт себя, как **never** (почти)
+При чтении - как `never` `*`
 
-```ts
+```ts {all|3}{at:1}
 const a: any = 42
 
 const b: string = a
+
+// const c: never = a
 ```
+
+`*` если не ожидается `never`
+
+</div>
+</div>
 
 ---
 layout: default
 dragPos:
-  playground_options: 613,130,193,_
+  playground_options: 629,113,197,_
 ---
 
 # Поиграемся в TypeScript Playground
 
-- [https://www.typescriptlang.org/play/]
-- **v5.8.3**
+[https://www.typescriptlang.org/play/]
 
-<img src="./images/playground.png" />
+TypeScript **v5.8.3**
+
+<img src="./images/playground.jpg" style="width: 60%" />
 <img v-drag="'playground_options'" src="./images/playground_options.png" />
 
 ---
 layout: default
 ---
 
-````md magic-move
-```ts
+<div style=" --slidev-code-font-size: 14px;">
+
+```ts twoslash
 const a1: {} = 42
 const a2: {} = "the Answer"
 const a3: {} = true
@@ -892,7 +1011,22 @@ const a7: {} = () => {}
 const a8: {} = null
 const a9: {} = undefined
 ```
-```ts
+
+</div>
+
+<v-click>
+
+[https://typescript-eslint.io/rules/no-empty-object-type/]
+
+</v-click>
+
+---
+layout: default
+---
+
+<div style=" --slidev-code-font-size: 14px;">
+
+```ts twoslash
 const a1: object = 42
 const a2: object = "the Answer"
 const a3: object = true
@@ -904,7 +1038,15 @@ const a7: object = () => {}
 const a8: object = null
 const a9: object = undefined
 ```
-```ts
+
+</div>
+
+
+---
+layout: default
+---
+
+```ts {all|3,9,13}
 const a1: {
    toLocaleString: () => string;
 } = 42;
@@ -919,15 +1061,26 @@ const a3: {
    valueOf: () => boolean;
 } = true;
 ```
-````
 
-[https://typescript-eslint.io/rules/no-empty-object-type/]
+
 
 ---
 layout: section
 ---
 
 # Excess properties
+
+---
+layout: default
+---
+
+```ts twoslash
+type A = {
+   a: string
+}
+
+const a: A = { a: "string", foo: "bar" }
+```
 
 ---
 layout: default
@@ -965,22 +1118,22 @@ layout: default
 
 ````md magic-move
 ```ts
-type Struct = {
+type A = {
  a: string
  b: boolean
  c: number
 }
 ```
-```ts
-type Struct = {
+```ts {5}
+type A = {
  a: string
  b: boolean
  c: number
  [key: string | number | symbol]: unknown
 }
 ```
-```ts
-type Struct = {
+```ts {6}
+type A = {
  a: string
  b: boolean
  c: number
@@ -988,8 +1141,8 @@ type Struct = {
  (...args: unknown[]): unknown
 }
 ```
-```ts
-type Struct = {
+```ts {7}
+type A = {
  a: string
  b: boolean
  c: number
@@ -1004,17 +1157,40 @@ type Struct = {
 layout: default
 ---
 
+````md magic-move
 ```ts
 type A = { a: string }
-type B = { a: string; foo: number }  // B <: A
-type C = { a: string; foo: boolean }  // C <: A
+
+type B = {
+  a: string;
+  foo: number
+}
+
+type C = {
+  a: string;
+  foo: boolean
+}
 ```
+```ts {all|5,10}
+type A = { a: string }
+
+type B = {       // B <: A
+  a: string;
+  foo: number
+}
+
+type C = {     // C <: A
+  a: string;
+  foo: boolean
+}
+```
+````
 
 ---
 layout: default
 ---
 
-```ts
+```ts {all|4|6|8}
 const b: B = { a: "b", foo: 42 }
 const c: C = { a: "c", foo: true }
 
@@ -1024,6 +1200,14 @@ const bac: B = { ...b, ...ac }
 
 console.log(bac.foo.toFixed())
 ```
+
+<div v-click="3">
+
+```text
+TypeError: bac.foo.toFixed is not a function
+```
+
+</div>
 
 ---
 layout: image
@@ -1036,15 +1220,19 @@ layout: default
 
 [https://github.com/microsoft/TypeScript/issues/12936]
 
-<img src="./images/exact_types.png" />
+<img src="./images/exact_types.png" style="width: 80%; margin: auto" />
 
 ---
 layout: default
 ---
 
-# А ещё
+# А ещё...
+
+<div>
 
 TypeScript не различает и не учитывает:
+
+</div>
 
 - **own** properties
 - **enumerable** properties
@@ -1062,56 +1250,59 @@ layout: section
 layout: default
 ---
 
-```ts
+```ts {all|1,2|4,5|7|9}
 type A = { a: string | boolean }
 type B = { a: string }
 
 const b: B = { a: "foo" }
 const a: A = b
+
 a.a = true
+
 console.log("b.a", b.a.toUpperCase())
 ```
 
+<div v-click="4">
+
+```text
+TypeError: b.a.toUpperCase is not a function
+```
+
+</div>
+
+---
+layout: default
+class: text-center
+---
+
+<div style="font-size: 1.5rem">
+<br />
+<br />
+
+**Если `A <: B`, то `{ p: A } <: { p: B }` ?**
+
+</div>
+
 ---
 layout: default
 ---
 
-Если
+Ковариантность:
 
-```
-string <: string | boolean
-```
+`B <: A  ===>  C<B> <: C<A>`
 
-то следует ли из этого
+Контравариантность:
 
-```
-{ a: string } <: { a: string | boolean }
-```
+`B :> A  ===>  C<B> <: C<A>`
 
-???
 
----
-layout: default
----
-
-Ковариантность типа `C<T>` по параметру `Т`:
-
-```
-B <: A  ===>  C<B> <: C<A>
-```
-
-Контравариантность типа `C<T>` по параметру `Т`:
-
-```
-B :> A  ===>  C<B> <: C<A>
-```
 
 ---
 layout: default
 transition: slide-up
 ---
 
-```ts
+```ts {all|2,3,7,8}
 type FA = {
  getA: () => string | boolean
  setA: (arg: string | boolean) => string | boolean
@@ -1128,7 +1319,17 @@ layout: default
 transition: none
 ---
 
-```ts
+```ts twoslash
+type FA = {
+ getA: () => string | boolean
+ setA: (arg: string | boolean) => string | boolean
+}
+
+type FB = {
+ getA: () => string
+ setA: (arg: string) => string
+}
+// ---cut---
 // ...
 let _a: string = "foo"
 const fb: FB = { getA: () => _a, setA: (arg) => _a = arg }
@@ -1136,40 +1337,43 @@ const fa: FA = fb
 fa.setA(true)
 ```
 
-```
-Type 'FB' is not assignable to type 'FA'.
- Types of property 'setA' are incompatible.
-   Type '(arg: string) => string' is not assignable to type '(arg: string | boolean) => string | boolean'.
-     Types of parameters 'arg' and 'arg' are incompatible.
-       Type 'string | boolean' is not assignable to type 'string'.
-         Type 'boolean' is not assignable to type 'string'.(2322)
-```
-
 ---
-layout: two-cols
+layout: default
 ---
 
 # strictFunctionTypes
 
-<br />
+[https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
+
+<div class="two-cols-grid" style="grid-template-columns: 2fr 1fr">
+
+<div>
 
 Включает **контравариантное** поведение функциональных типов **по аргументам**.
 
-```
-T2 :> T1, R2 <: R1  ===>  (a: T2) => R2 <: (a: T1) => R1
-```
+<br />
 
-::right::
+<div class="text-center">
+
+Если `T2 :> T1, R2 <: R1`,
+
+то `(a: T2) => R2 <: (a: T1) => R1`
+
+</div>
+
+</div>
+<div>
 
 <img src="./images/strict_function_types.png" />
+
+</div>
+</div>
 
 ---
 layout: default
 ---
 
 # strictFunctionTypes и методы
-
-<br />
 
 [https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
 
@@ -1179,11 +1383,14 @@ During development of this feature, *we discovered a large number of inherently 
 layout: default
 ---
 
+[https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
+
 ````md magic-move
-```ts
+```ts {all|6}
 type Methodish = {
  func(x: string | number): void
 }
+
 function fn(x: string) {
  console.log("Hello, " + x.toLowerCase())
 }
@@ -1198,6 +1405,7 @@ m.func(10)
 type Methodish = {
  func: (x: string | number) => void
 }
+
 function fn(x: string) {
  console.log("Hello, " + x.toLowerCase())
 }
@@ -1206,14 +1414,82 @@ const m: Methodish = {
  func: fn,
 }
 m.func(10)
-/*
-Type '(x: string) => void' is not assignable to type '(x: string | number) => void'.
- Types of parameters 'x' and 'x' are incompatible.
-   Type 'string | number' is not assignable to type 'string'.
-     Type 'number' is not assignable to type 'string'.(2322)
-*/
 ```
 ````
+
+<div v-click="[1,2]">
+
+```text
+x.toLowerCase is not a function 
+```
+
+</div>
+
+---
+layout: default
+---
+
+```ts {monaco-diff} { editorOptions: { renderSideBySide: false } }
+type Methodish = {
+ func(x: string | number): void
+}
+
+function fn(x: string) {
+ console.log("Hello, " + x.toLowerCase())
+}
+ 
+// Ultimately an unsafe assignment, but not detected
+const m: Methodish = {
+ func: fn,
+}
+m.func(10)
+~~~
+type Methodish = {
+ func: (x: string | number) => void
+}
+
+function fn(x: string) {
+ console.log("Hello, " + x.toLowerCase())
+}
+
+const m: Methodish = {
+ func: fn,
+}
+m.func(10)
+```
+
+---
+layout: default
+---
+
+```ts twoslash
+type Methodish = {
+ func: (x: string | number) => void
+}
+
+function fn(x: string) {
+ console.log("Hello, " + x.toLowerCase())
+}
+
+const m: Methodish = {
+ func: fn,
+}
+m.func(10)
+```
+
+---
+layout: default
+---
+
+# method-signature-style
+
+[https://typescript-eslint.io/rules/method-signature-style/]
+
+```ts {all|3}
+type Options = ['method' | 'property'];
+
+const defaultOptions: Options = ['property'];
+```
 
 ---
 layout: section
@@ -1224,8 +1500,8 @@ layout: section
 ---
 layout: default
 dragPos:
-  readonly: 143,378,352,_
-  captain: 443,44,443,_
+  readonly: 0,-156,0,0
+  captain: 0,-156,0,0
 ---
 
 ```ts

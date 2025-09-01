@@ -85,7 +85,6 @@ layout: default
   - компиляторах и оптимизациях
   - "кишках" runtime разных языков
   - IDE и инструментах
-  - LISP, Prolog, OCaml, Haskell, Scala…
 
 </div>
 </div>
@@ -204,7 +203,7 @@ hideInToc: true
 
 # План доклада
 
-1. Проблема строгого языка
+1. Проблема строгости языка
 1. Коротко про TypeScript и его систему типов
 1. Отношение подтипов в TypeScript
 1. Возможные пути решения
@@ -217,7 +216,7 @@ hideInToc: true
 layout: section
 ---
 
-# 1. Проблема строгого языка
+# 1. Проблема строгости языка
 
 в динамической среде исполнения
 
@@ -260,17 +259,17 @@ dragPos:
 <img v-drag="'cwa'" src="./images/cwa.png" />
 
 <!--
-Есть в мире разработки компиляторов такой термин как Closed World Assumption или предположение о "закрытом мире". Это когда вся среда исполнения вместе с самой программой находится под контролем, закрыта от динамических изменений, предсказуема, работает как часы. И тогда можно вести очень сложные рассуждения с сильными доказательствами, статически, ещё до запуска программы, просто глядя на код.
+В разработке компиляторов есть такой термин как Closed World Assumption или предположение о "закрытом мире". Это когда вся программа вместе со средой исполнения находится под контролем, закрыта от динамических изменений, предсказуема, работает как часы. И тогда можно вести очень сложные рассуждения с сильными доказательствами, статически, ещё до запуска программы, просто глядя на код.
 
-Если вы разрабатываете программную систему или какой-то её фрагмент, модуль, с таким предположением, то в таких случаях хорошо заходит статическая типизация.
+В таких случаях хорошо заходит статическая типизация.
 
-Обычно это предположение требуется при написании прикладного кода. Потому что обычно в требованиях предполагается предсказуемость поведения.
+Обычно это бывает при написании прикладного кода. Потому что обычно в требованиях предполагается предсказуемость поведения.
 -->
 
 ---
 layout: default
 dragPos:
-  owa: 541,121,370,_
+  owa: 538,121,370,_
 ---
 
 # Open World Assumption
@@ -289,7 +288,7 @@ dragPos:
 <!--
 В противовес существует Open World Assumption, это когда среда исполнения открыта для динамической загрузки кода, меняется на ходу по тем или иным причинам или, вообще, содержит реализацию интерпретатора другого языка или просто функцию eval. JavaScript-runtime именно такой.
 
-И в таких случаях для обеспечения надёжности ничего не поделать, придётся вставлять в код динамические проверки.
+И в таких случаях для обеспечения строгости придётся вставлять в код динамические проверки.
 
 Обычно в таких условиях выполняется библиотечный код. Библиотеки обычно не знают, в каких кейсах будут использоваться и в каком окружении исполняться. В таких случаях статическая типизация применима с большим трудом. О том, что на TypeScript трудно писать библиотечный код, был доклад на прошлом holy.
 -->
@@ -301,8 +300,6 @@ layout: default
 
 # Задача
 
-<br/>
-
 - Задействовать возможности TypeScript для ужесточения языка **прикладного кода**, используя типы как **_спецификацию_**.
 
 <br />
@@ -311,20 +308,17 @@ layout: default
 
 # Проблема
 
-<br/>
-
 - Система типов TypeScript имеет **существенные недостатки**, не позволяющие обеспечить строгие гарантии.
 
 </v-click>
 
 <!--
-Теперь предположим в этом докладе, что статическая типизация нам нужна, что мы пишем прикладной код в определённом стиле - без динамической магии, в удобном для статического анализа виде - и хотим использовать типы по максимуму почти как формальную спецификацию. Тайпчекер проверял бы для нас, чтобы поведение программы придерживалось строго определённой схемы, и при редактировании кода многие потенциальные ошибки сразу были бы видимыми для программиста во время компиляции.
+Но сегодня в рамках доклада предположим, что статическая типизация нам нужна, что мы пишем прикладной код в определённом стиле - без динамической магии, в удобном для статического анализа виде - и хотим использовать типы по максимуму как спецификацию программы. А соответствие программы её спецификациии, выраженной в типах, проверял бы тайпчекер.
 
-1. А проблема в том, что TypeScript как он есть для этой задачи тоже не подходит. Есть существенные недостатки в самом фундаменте системы типов, о которых мы сейчас и поговорим и подумаем, что с этим можно сделать.
+1. А проблема в том, что TypeScript как он есть имеет существенные недостатки в самом фундаменте системы типов, что затрудняет нам использование типов. Насколько эти недостатки существенны, мы и поговорим.
 -->
 
 ---
-level: 2
 layout: default
 ---
 
@@ -332,6 +326,7 @@ layout: default
 
 <div style="display: flex; flex-flow: row nowrap; gap: 30px">
 <div style="width: 35%">
+  <br />
   <img src="./images/mad.jpeg" style="width: 100%" />
 </div>
 <div style="flex-grow: 1">
@@ -347,15 +342,14 @@ layout: default
 </div>
 
 <!--
-На самом деле, так хотелось рассказать сегодня о другом. Я думал готовить доклад на более серьёзные хардкорные темы, связанные с типизацией, присоединиться к тем докладчикам, которые разбирают трёхэтажные типы, порешать type-challenges. А потом думаю: "А какой смысл? Если TypeScript такой "дырявый" в самых своих основах.
+На самом деле, сегодня хотелось рассказывать о другом, про что-то более хардкорное. Например, про зависимые типы, или использование информации о типах при оптимизациях во время сборки Я думал готовить доклад на более серьёзные хардкорные темы, связанные с типизацией, присоединиться к тем докладчикам, которые разбирают трёхэтажные типы, порешать type-challenges. А потом думаю: "А какой смысл? Если TypeScript такой "дырявый" в самых своих основах.
 -->
 ---
-level: 2
 layout: default
 dragPos:
   dreaming_girl: 209,180,521,_
-  ocaml1: 32,128,418,_
-  ocaml2: 29,307,467,_
+  ocaml1: 30,294,347,_
+  ocaml2: 29,376,398,_
   want_ocaml: 11,25,376,179
   unit_tests: 590,23,376,183
 ---
@@ -370,7 +364,7 @@ dragPos:
 </v-click>
 
 <!--
-Я вообще какое-то время держался за идею, что на TypeScript можно писать в том же стиле, как на OCaml-e, получая все те же преимущества функциональных языков со строгой типизацией и не писать unit-тесты на то, что и так проверяется типами. Но в случае TypeScript тщательно покрывать код unit-тестами - это всё ещё актуально.
+Я вообще какое-то время держался за идею, что на TypeScript можно писать в том же стиле, как на OCaml-e, получая все те же преимущества функциональных языков со строгой типизацией. А оказывается, нет, типы обманчивы. Поэтому тщательно покрывать код unit-тестами - это всё ещё актуально.
 -->
 
 ---
@@ -431,7 +425,7 @@ dragPos:
 ---
 layout: default
 dragPos:
-  smiling_cat: 637,112,269,_
+  smiling_cat: 619,113,287,_
 ---
 
 # TypeScript хвалят за
@@ -517,19 +511,17 @@ layout: default
 -->
 ---
 layout: default
-dragPos:
-  house_of_cards: 377,121,512,_
 ---
 
-<style>
+<style scoped>
   p {
-    background-color: #ffffffcc;
+    background-color: #ffffff;
   }
 </style>
 
 # И как с этим жить?
 
-<img src="./images/house_of_cards.png" style="position: absolute; z-index: -100; right: 0; bottom: 0; width: 512px; opacity: 0.5" />
+<img src="./images/house_of_cards.jpg" style="position: absolute; z-index: -100; right: 100px; bottom: 0; width: 642px" />
 
 <br />
 <div style="text-align: center; font-size: 1.5rem">
@@ -827,13 +819,13 @@ layout: default
 
 ```ts {all|5,10}{at:1}
 const b: B = {
- foo: "the Answer",
- bar: 42
+  foo: "the Answer",
+  bar: 42
 }
 const a: A = b
 
 let m: A = {
- foo: "the Question"
+  foo: "the Question"
 }
 m = b
 ```
@@ -843,7 +835,7 @@ m = b
 
 ```ts {all|6,9}{at:1}
 type C = {
- a: A
+  a: A
 }
 
 const c: C = { a: a }
@@ -1048,17 +1040,17 @@ layout: default
 
 ```ts {all|3,9,13}
 const a1: {
-   toLocaleString: () => string;
+  toLocaleString: () => string;
 } = 42;
 
 const a2: {
-   codePointAt(pos: number): number | undefined;
-   charAt: (pos: never) => unknown;
-   // ...
+  codePointAt(pos: number): number | undefined;
+  charAt: (pos: never) => unknown;
+  // ...
 } = "the Answer";
 
 const a3: {
-   valueOf: () => boolean;
+  valueOf: () => boolean;
 } = true;
 ```
 
@@ -1076,7 +1068,7 @@ layout: default
 
 ```ts twoslash
 type A = {
-   a: string
+  a: string
 }
 
 const a: A = { a: "string", foo: "bar" }
@@ -1089,14 +1081,14 @@ layout: default
 ````md magic-move
 ```ts
 type A = {
-   a: string
+  a: string
 }
 
 const a: A = { a: "string", foo: "bar" }
 ```
 ```ts
 type A = {
-   a: string
+  a: string
 }
 
 const b = { a: "string", foo: "bar" }
@@ -1119,36 +1111,36 @@ layout: default
 ````md magic-move
 ```ts
 type A = {
- a: string
- b: boolean
- c: number
+  a: string
+  b: boolean
+  c: number
 }
 ```
 ```ts {5}
 type A = {
- a: string
- b: boolean
- c: number
- [key: string | number | symbol]: unknown
+  a: string
+  b: boolean
+  c: number
+  [key: string | number | symbol]: unknown
 }
 ```
 ```ts {6}
 type A = {
- a: string
- b: boolean
- c: number
- [key: string | number | symbol]: unknown
- (...args: unknown[]): unknown
+  a: string
+  b: boolean
+  c: number
+  [key: string | number | symbol]: unknown
+  (...args: unknown[]): unknown
 }
 ```
 ```ts {7}
 type A = {
- a: string
- b: boolean
- c: number
- [key: string | number | symbol]: unknown
- (...args: unknown[]): unknown
- new (...args: unknown[]): unknown
+  a: string
+  b: boolean
+  c: number
+  [key: string | number | symbol]: unknown
+  (...args: unknown[]): unknown
+  new (...args: unknown[]): unknown
 }
 ```
 ````
@@ -1179,7 +1171,7 @@ type B = {       // B <: A
   foo: number
 }
 
-type C = {     // C <: A
+type C = {       // C <: A
   a: string;
   foo: boolean
 }
@@ -1220,7 +1212,7 @@ layout: default
 
 [https://github.com/microsoft/TypeScript/issues/12936]
 
-<img src="./images/exact_types.png" style="width: 80%; margin: auto" />
+<img src="./images/exact_types.png" style="width: 80%" />
 
 ---
 layout: default
@@ -1239,6 +1231,7 @@ TypeScript не различает и не учитывает:
 - **configurable** properties (можно ли удалять через `delete`)
 - `value`, `writable`, `get`, `set`
 - `Object.freeze`
+- `Proxy`
 
 ---
 layout: section
@@ -1295,8 +1288,6 @@ layout: default
 
 `B :> A  ===>  C<B> <: C<A>`
 
-
-
 ---
 layout: default
 transition: slide-up
@@ -1304,13 +1295,13 @@ transition: slide-up
 
 ```ts {all|2,3,7,8}
 type FA = {
- getA: () => string | boolean
- setA: (arg: string | boolean) => string | boolean
+  getA: () => string | boolean
+  setA: (arg: string | boolean) => string | boolean
 }
 
 type FB = {
- getA: () => string
- setA: (arg: string) => string
+  getA: () => string
+  setA: (arg: string) => string
 }
 ```
 
@@ -1321,13 +1312,13 @@ transition: none
 
 ```ts twoslash
 type FA = {
- getA: () => string | boolean
- setA: (arg: string | boolean) => string | boolean
+  getA: () => string | boolean
+  setA: (arg: string | boolean) => string | boolean
 }
 
 type FB = {
- getA: () => string
- setA: (arg: string) => string
+  getA: () => string
+  setA: (arg: string) => string
 }
 // ---cut---
 // ...
@@ -1350,8 +1341,6 @@ layout: default
 <div>
 
 Включает **контравариантное** поведение функциональных типов **по аргументам**.
-
-<br />
 
 <div class="text-center">
 
@@ -1388,30 +1377,30 @@ layout: default
 ````md magic-move
 ```ts {all|6}
 type Methodish = {
- func(x: string | number): void
+  func(x: string | number): void
 }
 
 function fn(x: string) {
- console.log("Hello, " + x.toLowerCase())
+  console.log("Hello, " + x.toLowerCase())
 }
  
 // Ultimately an unsafe assignment, but not detected
 const m: Methodish = {
- func: fn,
+  func: fn,
 }
 m.func(10)
 ```
 ```ts
 type Methodish = {
- func: (x: string | number) => void
+  func: (x: string | number) => void
 }
 
 function fn(x: string) {
- console.log("Hello, " + x.toLowerCase())
+  console.log("Hello, " + x.toLowerCase())
 }
 
 const m: Methodish = {
- func: fn,
+  func: fn,
 }
 m.func(10)
 ```
@@ -1431,29 +1420,29 @@ layout: default
 
 ```ts {monaco-diff} { editorOptions: { renderSideBySide: false } }
 type Methodish = {
- func(x: string | number): void
+  func(x: string | number): void
 }
 
 function fn(x: string) {
- console.log("Hello, " + x.toLowerCase())
+  console.log("Hello, " + x.toLowerCase())
 }
  
 // Ultimately an unsafe assignment, but not detected
 const m: Methodish = {
- func: fn,
+  func: fn,
 }
 m.func(10)
 ~~~
 type Methodish = {
- func: (x: string | number) => void
+  func: (x: string | number) => void
 }
 
 function fn(x: string) {
- console.log("Hello, " + x.toLowerCase())
+  console.log("Hello, " + x.toLowerCase())
 }
 
 const m: Methodish = {
- func: fn,
+  func: fn,
 }
 m.func(10)
 ```
@@ -1464,15 +1453,15 @@ layout: default
 
 ```ts twoslash
 type Methodish = {
- func: (x: string | number) => void
+  func: (x: string | number) => void
 }
 
 function fn(x: string) {
- console.log("Hello, " + x.toLowerCase())
+  console.log("Hello, " + x.toLowerCase())
 }
 
 const m: Methodish = {
- func: fn,
+  func: fn,
 }
 m.func(10)
 ```
@@ -1500,8 +1489,8 @@ layout: section
 ---
 layout: default
 dragPos:
-  readonly: 0,-156,0,0
-  captain: 0,-156,0,0
+  readonly: 0,0,100,_
+  captain: 70,51,448,382
 ---
 
 ```ts

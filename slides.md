@@ -533,7 +533,7 @@ layout: default
 
 Type checker - просто инструмент
 
-Для гарантий нужны *best practices* и *соглашения*
+Для гарантий нужны **_best practices_** и **_соглашения_**
 
 </v-clicks>
 </div>
@@ -1149,8 +1149,10 @@ type A = {
 layout: default
 ---
 
-````md magic-move
-```ts
+<div class="two-cols-grid" style="align-items: center">
+<div>
+
+```ts {all|5,10}{at:2}
 type A = { a: string }
 
 type B = {
@@ -1163,20 +1165,14 @@ type C = {
   foo: boolean
 }
 ```
-```ts {all|5,10}
-type A = { a: string }
 
-type B = {       // B <: A
-  a: string;
-  foo: number
-}
-
-type C = {       // C <: A
-  a: string;
-  foo: boolean
-}
-```
-````
+</div>
+<div v-click="1" class="text-center" style="font-size: 2rem">
+  <p><b>B &lt;: A</b></p>
+  <br />
+  <p><b>C &lt;: A</b></p>
+</div>
+</div>
 
 ---
 layout: default
@@ -1322,8 +1318,7 @@ type FB = {
 }
 // ---cut---
 // ...
-let _a: string = "foo"
-const fb: FB = { getA: () => _a, setA: (arg) => _a = arg }
+const fb: FB = { getA: () => "foo", setA: (arg) => "bar" }
 const fa: FA = fb
 fa.setA(true)
 ```
@@ -1346,7 +1341,7 @@ layout: default
 
 Если `T2 :> T1, R2 <: R1`,
 
-то `(a: T2) => R2 <: (a: T1) => R1`
+то `(a: T2) => R2 <: (a: T1) => R1`.
 
 </div>
 
@@ -1489,11 +1484,11 @@ layout: section
 ---
 layout: default
 dragPos:
-  readonly: 0,0,100,_
-  captain: 70,51,448,382
+  readonly: 68,321,408,_
+  captain: 459,54,448,_
 ---
 
-```ts
+```ts {2|all|7}{at:2}
 type A = { a: string | boolean }
 type B = { readonly a: string }
 
@@ -1503,7 +1498,15 @@ a.a = true
 console.log("b.a", b.a.toUpperCase())
 ```
 
-<div v-drag="'readonly'" v-click.hide="1">
+<div v-click="4">
+
+```text
+TypeError: b.a.toUpperCase is not a function
+```
+
+</div>
+
+<div v-drag="'readonly'" v-click.hide="1" style="font-size: 1.5rem">
 
 Да просто влепи **readonly**!
 
@@ -1522,13 +1525,13 @@ transition: slide-up
 
 ```ts
 interface Person {
- name: string;
- age: number;
+  name: string;
+  age: number;
 }
 
 interface ReadonlyPerson {
- readonly name: string;
- readonly age: number;
+  readonly name: string;
+  readonly age: number;
 }
 ```
 
@@ -1537,10 +1540,10 @@ layout: default
 transition: slide-up
 ---
 
-```ts
+```ts {all|7|10}
 let writablePerson: Person = {
- name: "Person McPersonface",
- age: 42,
+  name: "Person McPersonface",
+  age: 42,
 };
 
 // works
@@ -1561,7 +1564,16 @@ transition: slide-up
 writablePerson = readonlyPerson;
 ```
 
+
+<v-click>
+
+[https://www.typescriptlang.org/docs/handbook/2/objects.html#readonly-properties]
+
 TypeScript doesn’t factor in whether properties on two types are `readonly` when checking whether those types are compatible, so `readonly` properties **can also change via aliasing**.
+
+*TypeScript не различает, есть ли у properties двух типов модификатор `readonly`, когда проверяет эти типы на совместимость, так что `readonly` properties **могут быть также изменены через другие ссылки на объект**.*
+
+</v-click>
 
 ---
 layout: default
@@ -1607,9 +1619,15 @@ layout: section
 layout: default
 ---
 
-# Подтипы у функций
+# Подтипы у функциональных типов
 
-```ts
+<div class="two-cols-grid" style="grid-template-columns: 1fr 3fr; align-items: center">
+<div class="text-center" style="font-size: 2rem">
+<p><b>&lt;:</b></p>
+</div>
+<div>
+
+```ts {all|4-7}
 (a: string, b: boolean, c: number) => unknown
 (a: string, b: boolean) => unknown
 (a: string) => unknown
@@ -1619,24 +1637,18 @@ layout: default
 (a?: string, b?: boolean, c?: number) => unknown
 ```
 
----
-layout: default
----
+</div>
+</div>
 
-# Подтипы у функций и опциональные параметры
+<v-drag-arrow pos="227,307,-1,-179"/>
 
-```ts
-() => unknown
-(a?: string) => unknown
-(a?: string, b?: boolean) => unknown
-(a?: string, b?: boolean, c?: number) => unknown
-```
+<v-drag-arrow v-click="1" pos="270,216,1,90"/>
 
 ---
 layout: default
 ---
 
-```ts
+```ts {all|1|3|5|1,7}
 const a = (x?: number) => x?.toFixed();
 
 const b: () => void            = a;
@@ -1646,11 +1658,19 @@ const c: (s?: string) => void  = b;
 c("");
 ```
 
+<v-click at="4">
+
+```text
+x.toFixed is not a function
+```
+
+</v-click>
+
 ---
 layout: default
 ---
 
-```ts
+```ts {all|1-3|5-9}
 type A = { a: string }
 type B = { a: string, foo?: boolean }
 type C = { a: string, foo?: number }
@@ -1661,6 +1681,14 @@ const c: C = a
 
 console.log("c.foo", c.foo?.toFixed())
 ```
+
+<v-click at="2">
+
+```text
+_a.toFixed is not a function
+```
+
+</v-click>
 
 ---
 layout: default

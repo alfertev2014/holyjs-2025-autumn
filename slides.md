@@ -606,7 +606,7 @@ dragPos:
   <ul v-click="[3, 4]">
   <li>В JavaScript по-умолчанию всё <code>any</code></li>
   <li>Слабо типизированная стандартная библиотека</li>
-  <li>“Магия” изменяемых прототипов, Object.defineProperty, Object.freeze, Proxy, переопределение instanceof, оператор delete…</li>
+  <li>“Магия” изменяемых прототипов, <code>Object.defineProperty</code>, <code>Object.freeze</code>, <code>Proxy</code>, переопределение <code>instanceof</code>, оператор <code>delete</code>…</li>
  </ul>
 </li>
 <li v-click="4">Врождённые проблемы в дизайне системы типов</li>

@@ -8,6 +8,11 @@
   font-size: 2rem;
 }
 
+.slidev-layout a {
+  font-size: 0.8rem;
+  color: #20578d;
+}
+
 .slidev-layout li {
   line-height: 1.5em;
   margin-bottom: 0.5rem;
@@ -41,4 +46,12 @@ li.slidev-vclick-current {
   grid-template-columns: 1fr 1fr;
   row-gap: 20px;
   column-gap: 40px;
+}
+
+.reference {
+  margin-block: 1rem;
+}
+
+.reference p {
+  margin: 0;
 }

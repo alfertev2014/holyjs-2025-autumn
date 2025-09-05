@@ -18,7 +18,7 @@ background: ./images/grid_cover.png
 
 Разбираемся с отношением подтипов в TypeScript
 
-<div style="position: absolute; bottom: 100px; left: 0; right: 0; font-style: italic">
+<div style="position: absolute; bottom: 100px; left: 0; right: 0; font-style: italic; opacity:0.9">
 <p style="font-size: 1.2rem; margin: 0"><b>Василий Алфертьев</b></p>
 <p style="font-size: 0.7rem; margin: 0">Frontend-разработчик, "Открытые решения"</p>
 </div>
@@ -108,14 +108,14 @@ dragPos:
   typing_rules: 101,167,309,_
   typing_rules2: 80,385,392,_
   complex_types: 9,190,962,_
-  mortal_combat: 255,251,509,_
+  mortal_combat: 257,250,482,_
   typescript_is_bad: 700,145,198,_
   bad_ts: 514,343,384,_
-  prototype_chain: 71,309,552,_
-  proxy: 639,94,291,_
-  devid: 628,284,269,_
-  tsgo: 319,126,625,_
-  tsgo_link: 467,388,435,_
+  prototype_chain: 89,314,552,_
+  proxy: 652,94,291,_
+  devid: 672,304,223,_
+  tsgo: 307,117,653,_
+  tsgo_link: 462,376,435,_
   nothing: 334,394,603,_
   nothing1: 77,244,369,20,-48
   nothing2: 78,244,372,20,46
@@ -351,8 +351,8 @@ layout: default
 layout: default
 dragPos:
   dreaming_girl: 209,180,521,_
-  ocaml1: 30,294,347,_
-  ocaml2: 29,376,398,_
+  ocaml1: 26,174,255,_
+  ocaml2: 26,238,278,_
   want_ocaml: 11,25,376,179
   unit_tests: 590,23,376,183
 ---
@@ -373,9 +373,10 @@ dragPos:
 ---
 layout: default
 class: text-center
+style: "background-color: black; color: white"
 ---
 
-# DISCLAIMER
+<h1 style="color: red">DISCLAIMER</h1>
 
 <br />
 
@@ -642,7 +643,7 @@ dragPos:
 layout: two-cols-header
 ---
 
-# Спецификация языка TypeScript
+# Спецификация языка TypeScript?
 
 <div class="two-cols-grid" style="align-items: start">
 <div>
@@ -774,11 +775,12 @@ layout: section
 layout: default
 ---
 
-<img v-drag="[142,77,594,408]" src="./images/subset.svg" />
+<img v-drag="[238,77,466,408]" src="./images/subset.svg" />
 
 <!--
 И если вспомнить, что типы в TypeScript представляют собой множества допустимых значений, то отношение подтипов соответствует одношению вложения множеств.
 -->
+
 ---
 layout: default
 dragPos:
@@ -857,7 +859,7 @@ m = b
 </div>
 <div>
 
-```ts {all|6,9}{at:1}
+```ts {all|6,10}{at:1}
 type C = {
   a: A
 }
@@ -866,13 +868,14 @@ const c: C = { a: a }
 c.a = b
 
 const f = (a: A) => { }
+
 f(b);
 ```
 
 </div>
 </div>
 
-<p v-click="2" class="text-center">
+<p v-click="2" class="text-center" style="font-size: 2rem">
   <b>Актуальный тип &lt;: Ожидаемый тип</b>
 </p>
 
@@ -1011,9 +1014,18 @@ layout: default
 -->
 
 ---
+layout: section
+---
+
+# Проблемы отношения подтипов
+
+на примерах
+
+
+---
 layout: default
 dragPos:
-  playground_options: 629,113,197,_
+  playground_options: 636,115,222,_
 ---
 
 # Поиграемся в TypeScript Playground
@@ -1022,7 +1034,7 @@ dragPos:
 
 TypeScript **v5.9.2**
 
-<img src="./images/playground.jpg" style="width: 60%" />
+<img src="./images/playground.jpg" style="width: 50%" />
 <img v-drag="'playground_options'" src="./images/playground_options.png" />
 
 <!--
@@ -1090,14 +1102,18 @@ const a9: {} = undefined
 
 </div>
 
-<v-click>
+<div v-click class="reference">
+
+**no-empty-object-type**
 
 [https://typescript-eslint.io/rules/no-empty-object-type/]
 
-</v-click>
+</div>
 
 <!--
 Начнём с забавных фактов о том, как работает структурная типизация. В JavaScript практически всё считается объектом, поэтому пустой объектный тип является надтипом любых значений, кроме null и undefined.
+
+1. Это легко может приводить к путанице, поэтому в typescript-eslint есть правило no-empty-object-type.
 -->
 
 ---
@@ -1208,11 +1224,13 @@ f(b)
 ```
 ````
 
-<v-click>
+<div v-click class="reference">
+
+**Excess Property Checks**
 
 [https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks]
 
-</v-click>
+</div>
 
 <!--
 1. Стоит нам вынести объектное выражение в отдельную константу - и проверки лишних properties уже не происходит.
@@ -1277,11 +1295,12 @@ type A = {
 
 ---
 layout: default
+class: text-center
 ---
 
-[https://github.com/microsoft/TypeScript/issues/12936]
+<img src="./images/exact_types.png" style="width: 80%; margin: auto" />
 
-<img src="./images/exact_types.png" style="width: 80%" />
+[https://github.com/microsoft/TypeScript/issues/12936]
 
 <!--
 Про это можно почитать обсуждение на GitHub в issue про точные типы, почему TypeScript их решили не делать. Хотя может показаться, что проверка лишних properties в объектных выражениях - это оно и есть. Но нет, это частный узкий случай.
@@ -1431,7 +1450,10 @@ class: text-center
 
 ---
 layout: default
+class: text-center
 ---
+
+<br />
 
 Ковариантность:
 
@@ -1524,10 +1546,7 @@ During development of this feature, *we discovered a large number of inherently 
 layout: default
 ---
 
-[https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
-
-````md magic-move
-```ts {all|6}
+```ts {all|6,13}
 type Methodish = {
   func(x: string | number): void
 }
@@ -1542,21 +1561,6 @@ const m: Methodish = {
 }
 m.func(10)
 ```
-```ts
-type Methodish = {
-  func: (x: string | number) => void
-}
-
-function fn(x: string) {
-  console.log("Hello, " + x.toLowerCase())
-}
-
-const m: Methodish = {
-  func: fn,
-}
-m.func(10)
-```
-````
 
 <div v-click="[1,2]">
 
@@ -1578,8 +1582,7 @@ type Methodish = {
 function fn(x: string) {
   console.log("Hello, " + x.toLowerCase())
 }
- 
-// Ultimately an unsafe assignment, but not detected
+
 const m: Methodish = {
   func: fn,
 }
@@ -1676,11 +1679,11 @@ layout: default
 transition: slide-up
 ---
 
-# Пример из Handbook
+# Readonly Properties
 
 [https://www.typescriptlang.org/docs/handbook/2/objects.html#readonly-properties]
 
-```ts
+```ts {all|7,8}
 interface Person {
   name: string;
   age: number;
@@ -1694,7 +1697,6 @@ interface ReadonlyPerson {
 
 ---
 layout: default
-transition: slide-up
 ---
 
 ```ts {all|7|10}
@@ -1713,7 +1715,7 @@ console.log(readonlyPerson.age); // prints '43'
 
 ---
 layout: default
-transition: slide-up
+transition: none
 ---
 
 ```ts
@@ -1721,10 +1723,15 @@ transition: slide-up
 writablePerson = readonlyPerson;
 ```
 
-
 <v-click>
 
+<div class="reference">
+
+**Readonly Properties**
+
 [https://www.typescriptlang.org/docs/handbook/2/objects.html#readonly-properties]
+
+</div>
 
 TypeScript doesn’t factor in whether properties on two types are `readonly` when checking whether those types are compatible, so `readonly` properties **can also change via aliasing**.
 
@@ -1734,37 +1741,17 @@ TypeScript doesn’t factor in whether properties on two types are `readonly` wh
 
 ---
 layout: default
-transition: none
----
-
-```ts
-const readonlyPerson: ReadonlyPerson = {
- name: "Person McPersonface",
- age: 42,
-};
-
-console.log(readonlyPerson.age); // prints '42'
-
-const writablePerson: Person = readonlyPerson;
-writablePerson.age++;
-
-console.log(readonlyPerson.age); // prints '43'
-```
-
----
-layout: default
 ---
 
 # "readonly modifiers are a joke"
 
-[https://github.com/Microsoft/TypeScript/issues/13002]
+- [https://github.com/Microsoft/TypeScript/issues/13002]
 
-<img src="./images/readonly1.png" />
-<img src="./images/readonly2.png" />
+<img src="./images/readonly1.png" style="width: 80%; margin: auto"/>
 
-[https://github.com/Microsoft/TypeScript/issues/13347]
+- [https://github.com/Microsoft/TypeScript/issues/13347]
 
-<img src="./images/readonly3.png" />
+<img src="./images/readonly2.png" style="width: 80%; margin: auto"/>
 
 ---
 layout: section
@@ -1778,6 +1765,7 @@ layout: default
 
 # Подтипы у функциональных типов
 
+<br />
 <div class="two-cols-grid" style="grid-template-columns: 1fr 3fr; align-items: center">
 <div class="text-center" style="font-size: 2rem">
 <p><b>&lt;:</b></p>
@@ -1797,16 +1785,16 @@ layout: default
 </div>
 </div>
 
-<v-drag-arrow pos="227,307,-1,-179"/>
+<v-drag-arrow pos="225,330,0,-152"/>
 
-<v-drag-arrow v-click="1" pos="270,216,1,90"/>
+<v-drag-arrow v-click="1" pos="271,245,0,85"/>
 
 ---
 layout: default
 ---
 
 ```ts {all|1|3|5|1,7}
-const a = (x?: number) => x?.toFixed();
+const a                        = (x?: number) => x?.toFixed();
 
 const b: () => void            = a;
 
@@ -1855,9 +1843,9 @@ layout: default
 
 - Нарушение вариантности при изменяемых properties
 - Отсутствие точных типов (без лишних properties)
-- readonly не учитывается в отношении подтипов
-- Есть readonly-массивы и кортежи, но нет readonly-объектов
+- `readonly` не учитывается в отношении подтипов
 - Опциональные аргументы и properties нарушают отношение подтипов
+- Есть `readonly`-массивы и кортежи, но нет `readonly`-объектов
 
 ---
 layout: section

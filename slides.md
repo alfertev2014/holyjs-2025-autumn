@@ -662,6 +662,8 @@ layout: two-cols-header
 
 # Спецификация языка TypeScript?
 
+[https://github.com/microsoft/TypeScript/issues/15711]
+
 <div class="two-cols-grid" style="align-items: start">
 <div>
 
@@ -673,11 +675,11 @@ JavaScript имеет спецификацию:
 </div>
 <div>
 
-<b v-mark.red="1">TypeScript не имеет спецификации</b>:
+<p><b v-mark.red>TypeScript не имеет спецификации</b>:</p>
 
 - Компилятор tsc
 - Утилитные типы
-- *.d.ts для стандартной библиотеки JS, Web API и Node.js.
+- `*.d.ts` для JS, Web API и Node.js
 
 </div>
 <div v-click="2" style="text-align: center">
@@ -698,7 +700,7 @@ JavaScript имеет спецификацию:
 ---
 layout: default
 dragPos:
-  chuck: 606,54,274,_
+  chuck: 645,54,274,_
 ---
 
 # Кто-то может сказать
@@ -1234,7 +1236,7 @@ const f = (a: A) => { }
 
 f({ a: "string", foo: "bar" })
 ```
-```ts
+```ts {5}
 type A = {
   a: string
 }
@@ -1321,7 +1323,9 @@ type A = {
 layout: default
 ---
 
-- [https://github.com/microsoft/TypeScript/issues/12936]
+# Exact Types
+
+[https://github.com/microsoft/TypeScript/issues/12936]
 
 <img src="./images/exact_types.png" style="width: 80%; margin: auto" />
 
@@ -1366,7 +1370,7 @@ type C = {
 layout: default
 ---
 
-```ts {all|4|6|8}
+```ts {all|1,2|4|6|8}
 const b: B = { a: "b", foo: 42 }
 const c: C = { a: "c", foo: true }
 
@@ -1377,9 +1381,20 @@ const bac: B = { ...b, ...ac }
 console.log(bac.foo.toFixed())
 ```
 
-<div v-click="3" class="slidev-code error-output">
+<div v-click="4" class="slidev-code error-output">
 TypeError: bac.foo.toFixed is not a function
 </div>
+
+<v-click>
+
+```ts {3}
+type A = {
+  a: string
+  [key: string | number | symbol]: unknown;
+}
+```
+
+</v-click>
 
 <!--
 В данном примере мы создаём объекты типов B и C
@@ -1468,6 +1483,7 @@ class: text-center
 ---
 
 <div style="font-size: 1.5rem">
+<br />
 <br />
 <br />
 
@@ -1592,7 +1608,15 @@ layout: default
 
 [https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
 
-During development of this feature, *we discovered a large number of inherently unsafe class hierarchies*, including some in the DOM. Because of this, the setting only applies to functions written in function syntax, **not to those in method syntax**
+During development of this feature, *we discovered a large number of inherently unsafe class hierarchies*, including some in the DOM. Because of this, the setting only applies to functions written in function syntax, **not to those in method syntax**.
+
+<v-click>
+
+*Перевод*:
+
+В ходе разработки этой фичи, *мы обнаружили большое количество небезопасных по своей природе иерархий классов*, включая некоторые в DOM API. Из-за этого данная настройка применяется только для функций, написанных в функциональном синтаксисе, **но не в синтаксисе методов**.
+
+</v-click>
 
 <!--
 Но почитаем внимательнее документацию, и там сказано, что strictFunctionTypes работает только для функциональных типов, но не для методов. Потому что когда его включали в язык, обнаружили много деклараций типов, полагающихся на небезопасное поведение
@@ -1602,7 +1626,7 @@ During development of this feature, *we discovered a large number of inherently 
 layout: default
 ---
 
-```ts {all|6,13}
+```ts {all|2|6,13}
 type Methodish = {
   func(x: string | number): void
 }
@@ -1618,7 +1642,7 @@ const m: Methodish = {
 m.func(10)
 ```
 
-<div v-click="1" class="slidev-code error-output">
+<div v-click="2" class="slidev-code error-output">
 x.toLowerCase is not a function
 </div>
 
@@ -1687,6 +1711,14 @@ type Options = ['method' | 'property'];
 const defaultOptions: Options = ['property'];
 ```
 
+<br />
+
+<v-click at="1">
+
+- `"property"`: Enforce using property signature for functions. Use this to enforce maximum correctness together with TypeScript's strict mode.
+
+</v-click>
+
 ---
 layout: section
 ---
@@ -1706,11 +1738,13 @@ type B = { readonly a: string }
 
 const b: B = { a: "foo" }
 const a: A = b
+
 a.a = true
+
 console.log("b.a", b.a.toUpperCase())
 ```
 
-<div v-click="4" class="slidev-code error-output">
+<div v-click="3" class="slidev-code error-output">
 TypeError: b.a.toUpperCase is not a function
 </div>
 
@@ -1787,7 +1821,9 @@ TypeScript doesn’t factor in whether properties on two types are `readonly` wh
 
 <v-click>
 
-*TypeScript не различает, есть ли у properties двух типов модификатор `readonly`, когда проверяет эти типы на совместимость, так что `readonly` properties **могут быть также изменены через другие ссылки на объект**.*
+*Перевод*:
+
+TypeScript не учитывает, есть ли у properties двух типов модификатор `readonly`, когда проверяет эти типы на совместимость, так что `readonly` properties **могут быть изменены через другие ссылки на объект**.
 
 </v-click>
 
@@ -1886,10 +1922,9 @@ layout: default
 # Pain points
 
 - Ковариантность для изменяемых properties
-- Отсутствие точных типов (проверки на лишние properties)
-- `readonly` не учитывается в отношении подтипов
-- Опциональные аргументы и properties нарушают отношение подтипов
-- Есть `readonly`-массивы и кортежи, но нет `readonly`-объектов
+- Отсутствие точных типов и `...`-оператор
+- `readonly` properties не учитываются в отношении подтипов
+- Опциональные аргументы и properties приводят к циклам в отношении подтипов
 
 ---
 layout: section

@@ -227,7 +227,6 @@ hideInToc: true
 1. Проблема строгости языка
 1. Коротко про TypeScript и его систему типов
 1. Отношение подтипов в TypeScript
-1. Возможные пути решения
 1. Заключение
 
 <!--
@@ -697,49 +696,6 @@ JavaScript имеет спецификацию:
 <!--
 Усугубляет всё то, что у TypeScript нет спецификации. Есть лишь исходники компилятора tsc, типы стандартной библиотеки и declaration-файлы для различных Web API и Node.js. Не буду сейчас останавливаться, к каким проблемам приводит этот факт.
 -->
----
-layout: default
-dragPos:
-  chuck: 645,54,274,_
----
-
-# Кто-то может сказать
-
-- “У меня в коде нет any!”
-- “У меня в коде нет as!”
-- “Я не пишу кастомных type predicates!”
-- “Я не обращаюсь к массиву по индексу без проверки!”
-- “Я врубил максимальный eslint-конфиг и strict-режим!”
-- “Все 3rd-patry библиотеки проверены и надёжны!”
-
-<v-click>
-
-- **“Компилируется - значит работает!” (с)**
-
-</v-click>
-
-<img v-click v-drag="'chuck'" src="./images/chuck.png" />
-
-<!--
-Всё-таки есть идеи снизить шансов нарушения типовой безопасности. Например, гарантировать, что мы не пишем в коде any, не используем as, не делаем никаких непроверенных операций, врубаем на максимум eslint и strict-режим, обязательно проверяем все сторонние библиотеки перед использованием. И такие... можем сказать: Компилируется - значит, работает! И тестировать не надо - сразу в продакшн. Звучит всё, как цитаты Чака Норриса.
--->
-
----
-layout: default
-dragPos:
-  harold: 275,209,465,_
----
-
-# Типы vs. Unit-тесты
-
-- “Я максимально гибко и точно описал типы в коде!”
-- “Зачем писать тесты? Почти всё проверяется типами!”
-
-<img v-drag="'harold'" src="./images/harold.jpg" />
-
-<!--
-Я же чувствую себя примерно вот так, когда говорю, что можно не писать тесты, если типы и так всё проверяют.
--->
 
 ---
 layout: section
@@ -828,6 +784,7 @@ dragPos:
 <!--
 Union и Intersection-типы соответствуют объединению и пересечению множеств. Поэтому правила отношения подтипов для них должны быть очевидны.
 -->
+
 ---
 layout: default
 ---
@@ -1023,7 +980,7 @@ layout: default
 
 # Type compatibility
 
-[https://www.typescriptlang.org/docs/handbook/type-compatibility.html#subtype-vs-assignment]
+[https://www.typescriptlang.org/docs/handbook/type-compatibility.html]
 
 В TypeScript различаются понятия **subtype**- и **assignment**-совместимости типов.
 
@@ -1133,7 +1090,7 @@ const a9: {} = undefined
 </div>
 
 <!--
-Несколько забавных фактов с забавных фактов о том, как работает структурная типизация. В JavaScript практически всё считается объектом, поэтому пустой объектный тип является надтипом любых значений, кроме null и undefined.
+Несколько забавных фактов о том, как работает структурная типизация. В JavaScript практически всё считается объектом, поэтому пустой объектный тип является надтипом любых значений, кроме null и undefined.
 
 1. Это легко может приводить к путанице, поэтому в typescript-eslint есть правило no-empty-object-type.
 -->
@@ -1188,7 +1145,7 @@ const a3: {
 <img v-click="2" v-drag="'tak_mozno'" src="./images/tak_mozno.jpg" />
 
 <!--
-Но больше всего забавляет, что так как значения примитивных типов рассматриваются как объекты со своими properties и методами, для них можно угадать надтипы в виде непустых объектных типов, содержащих те же методы. Можно даже точную сигнатуру не указывать. Это работает! И это не противоречит типовой безопасности. Ведь если вам понадобится узнать, действительно ли это number, string или boolean, вы будете вынужнены это сделать динамической проверкой через typeof.
+Но больше всего забавляет, что так как значения примитивных типов рассматриваются как объекты со своими properties и методами, для них можно построить надтипы в виде непустых объектных типов, содержащих те же методы. Можно даже точную сигнатуру не указывать. Это работает! И это не противоречит типовой безопасности. Ведь если вам понадобится узнать, действительно ли это number, string или boolean, вы будете вынужнены это сделать динамической проверкой через typeof.
 -->
 
 ---
@@ -1308,7 +1265,7 @@ type A = {
 ````
 
 <!--
-А вообще, проверка лишних properties поднимает такой вопрос. Что TypeScript понимает под объектным типом? Ведь чаще всего мы пользуемся объектными типами, когда точно знаем, что в объекте лежит ровно вот это, и ничего больше нет. Однако, вот такая запись лишь означает, что в объекте обязательно есть properties a, b, c со значениями указанных типов, и никак не ограничивает, чтобы в объекте больше ничего не было.
+А вообще, проверка лишних properties поднимает такой вопрос. Что в TypeScript понимается под объектным типом? Ведь чаще всего мы пользуемся объектными типами, когда точно знаем, что в объекте лежит ровно вот это, и ничего больше нет. Однако, вот такая запись лишь означает, что в объекте обязательно есть properties a, b, c со значениями указанных типов, и никак не ограничивает, чтобы в объекте больше ничего не было.
 
 1. То есть, условно, в этом объекте могут быть любые другие неизвестные properties любых типов.
 
@@ -1363,7 +1320,7 @@ type C = {
 </div>
 
 <!--
-С проверкой лишних properties в объекте и отсутствием точных типов связана проблема. Вот типы B и C, которые с точки зрения TypeScript являются подтипами типа A. Они оба расширяют тип A дополнительным property с одинаковым ключом foo, но с несовместимыми типами значений number и boolean.
+Но отсутствием точных типов связана проблема. Вот типы B и C, которые с точки зрения TypeScript являются подтипами типа A. Они оба расширяют тип A дополнительным property с одинаковым ключом foo, но с несовместимыми типами значений number и boolean.
 -->
 
 ---
@@ -1930,54 +1887,7 @@ layout: default
 layout: section
 ---
 
-<h1><span class="number">4. </span>Предлагаем решения</h1>
-
----
-layout: default
----
-
-# Что можно сказать про TypeScript
-
-- Теория типов рассчитана лямбда-исчисление
-- Система типов хорошо ложится на *функциональное программирование*
-- Проблемы появляются с императивным стилем
-
----
-layout: default
----
-
-# Идеи
-
-- Если ограничить язык, то система типов может быть надёжна
-- Определить ограниченный язык правилами линтера
-- Отделять “небезопасный” код от безопасного более явной границей
-
----
-layout: default
----
-
-# ESLint для ограничения языка
-
-<div class="two-cols-grid">
-<div>
-
-- no-restricted-syntax
-- no-restricted-properties
-- no-restricted-imports
-- no-restricted-globals
-- no-restricted-types
-
-</div>
-<div>
-  <img src="./images/stathem.jpg" />
-</div>
-</div>
-
----
-layout: section
----
-
-<h1><span class="number">5. </span>Заключение</h1>
+<h1><span class="number">4. </span>Заключение</h1>
 
 ---
 layout: default
@@ -2002,23 +1912,20 @@ layout: default
 
 # Спасибо за внимание!
 
-<style>
-  .two-cols-grid {
-    align-items: center;
-  }
-</style>
-<br />
 <div class="two-cols-grid">
-  <div class="two-cols-grid"><img src="./images/vasya.jpg" style="border-radius: 50%" /><div><b>Василий Алфертьев</b></div></div>
-  <img src="./images/osinit.png" style="width: 300px" />
   <div>
-    <p><img src="./images/telegram.svg" style="display: inline; width: 32px; height: 32px" /> <b>Telegram</b>: <a href="https://t.me/alfertev2012">@alfertev2012</a></p>
-    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">alfertev2014</a></p>
+    <span style="display: inline-block;padding: 1rem; border-width: 6px; border-color: #2d79c7">
+      <img src="./images/qr-code.png" style="width: 180px" />
+    </span>
+    <p>Полезные ссылки и <br />матетиалы к докладу</p>
   </div>
   <div>
-    <div class="two-cols-grid">
-      <div><img src="./images/react.svg" style="display: inline; width: 64px; height: 64px" /> React</div>
-      <div><img src="./images/ts_logo.png" style="display: inline; width: 64px; height: 64px" /> TypeScript</div>
+    <div class="two-cols-grid" style="align-items: center">
+      <img src="./images/vasya.jpg" style="border-radius: 50%" />
+      <p><b>Василий Алфертьев</b></p>
     </div>
+    <br />
+    <p><img src="./images/telegram.svg" style="display: inline; width: 32px; height: 32px" /> <b>Telegram</b>: <a href="https://t.me/alfertev2012">@alfertev2012</a></p>
+    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">alfertev2014</a></p>
   </div>
 </div>

@@ -673,19 +673,19 @@ JavaScript имеет спецификацию:
 </div>
 <div>
 
-**TypeScript не имеет спецификации**:
+<b v-mark.red="1">TypeScript не имеет спецификации</b>:
 
 - Компилятор tsc
 - Утилитные типы
 - *.d.ts для стандартной библиотеки JS, Web API и Node.js.
 
 </div>
-<div v-click="1" style="text-align: center">
+<div v-click="2" style="text-align: center">
 
 *(Язык программирования здорового человека)*
 
 </div>
-<div v-click="1" style="text-align: center">
+<div v-click="2" style="text-align: center">
 
 *(Язык программирования курильщика)*
 
@@ -698,7 +698,7 @@ JavaScript имеет спецификацию:
 ---
 layout: default
 dragPos:
-  chuck: 645,54,274,_
+  chuck: 606,54,274,_
 ---
 
 # Кто-то может сказать
@@ -750,14 +750,14 @@ layout: section
 ---
 layout: default
 dragPos:
-  turing_complete: 485,147,404,_
+  turing_complete: 485,125,404,_
 ---
 
 # Возможности системы типов TypeScript
 
 <ul>
 <li><b>Структурная</b> типизация</li>
-<li><span v-mark.red>Отношение <b>подтипов</b></span></li>
+<li><span v-mark.circle.red="2">Отношение <b>подтипов</b></span></li>
 <li><b>Рекурсивные</b> типы</li>
 <li><b>Union</b> и <b>Intersection</b> типы</li>
 <li><b>Unit</b> типы (или литеральные типы)</li>
@@ -766,11 +766,12 @@ dragPos:
 <li><b>Flow typing</b> и <b>type predicates</b></li>
 </ul>
 
-<div v-click v-drag="'turing_complete'"><em>(И даже не так страшно, что она <b>полная по Тьюрингу</b>)</em></div>
+<div v-click="1" v-drag="'turing_complete'"><em>(И даже не так страшно, что она <b>полная по Тьюрингу</b>)</em></div>
 
 <!--
-Система типов TypeScript богата на различные возможности, дающие языку гибкость. И проблемы можно поискать в них во всех. Но сегодя сосредоточимся только на отношении подтипов. 
+Система типов TypeScript богата на различные возможности, дающие языку гибкость. И проблемы можно поискать в них во всех. Но сегодя сосредоточимся только на отношении подтипов.
 -->
+
 ---
 layout: section
 ---
@@ -1044,7 +1045,7 @@ layout: section
 ---
 layout: default
 dragPos:
-  playground_options: 636,115,222,_
+  playground_options: 546,121,222,_
 ---
 
 # Поиграемся в TypeScript Playground
@@ -1091,7 +1092,7 @@ const b: string = a
 // const c: never = a
 ```
 
-`*` если только ожидаемый тип не `never`
+`*` если ожидаемый тип не `never`
 
 </div>
 </div>
@@ -1166,7 +1167,7 @@ dragPos:
   tak_mozno: 488,245,340,_
 ---
 
-```ts {all|3,9,13|all}
+```ts {all|3,9,13}
 const a1: {
   toLocaleString: () => string;
 } = 42;
@@ -1318,12 +1319,11 @@ type A = {
 
 ---
 layout: default
-class: text-center
 ---
 
-<img src="./images/exact_types.png" style="width: 80%; margin: auto" />
+- [https://github.com/microsoft/TypeScript/issues/12936]
 
-[https://github.com/microsoft/TypeScript/issues/12936]
+<img src="./images/exact_types.png" style="width: 80%; margin: auto" />
 
 <!--
 Про это можно почитать обсуждение на GitHub в issue про точные типы, почему TypeScript их решили не делать. Хотя может показаться, что проверка лишних properties в объектных выражениях - это оно и есть. Но нет, это частный узкий случай.
@@ -1424,12 +1424,21 @@ TypeScript не различает и не учитывает:
 - `Object.freeze`
 - `Proxy`
 
+<!--
+А ещё, говоря про properties объектов, TypeScript не учитывает, являются ли они own, то есть взяты ли из самого объекта или из прототипа, перечислимы ли они, можно ли их удалять через delete, просто не учитывает десктипторы, например, не различает, является ли property парой getter и setter.
+
+Также, TypeScript не отслеживает, был ли заморожен объект через Object.freeze, или, может, это вообще Proxy, обрабатывающее обращение к properties особым образом.
+-->
+
 ---
 layout: section
 ---
 
 # Подтипы и вариантность
 
+<!--
+Вернёмся к вопросу, в каких случаях стоит считать объектные типы подтипами.
+-->
 ---
 layout: default
 ---
@@ -1450,6 +1459,9 @@ console.log("b.a", b.a.toUpperCase())
 TypeError: b.a.toUpperCase is not a function
 </div>
 
+<!--
+Вот есть типы A и B, отличающиеся только типом значения property. TypeScript считает, что B является подтипом A, и можно создать объект типа B со строкой в property и присвоить его в константу a. И вот мы через a изменяем это на boolean. Продолжаем работать с этим объектом через ссылку b, которая всё ещё думает, что это объект типа B, пробуем работать с property как со строкой, а там лежит boolean. Получаем ошибку в runtime.
+-->
 ---
 layout: default
 class: text-center
@@ -1463,6 +1475,9 @@ class: text-center
 
 </div>
 
+<!--
+В общем виде этот вопрос можно сформулировать так. Если B это подтип A, то является ли объект с property типа B подтипом объекта с тем же property типа A? Это свойство назвается ковариантность.
+-->
 ---
 layout: default
 class: text-center
@@ -1482,6 +1497,10 @@ class: text-center
 `B :> A  ==>  C<B> <: C<A>`
 
 </div>
+
+<!--
+А бывает ещё контравариантность, когда наоборот. И контравариантность свойственна для функциональных типов и их параметров.
+-->
 ---
 layout: default
 transition: slide-up
@@ -1499,6 +1518,9 @@ type FB = {
 }
 ```
 
+<!--
+Давайте попробуем заменить property на пару getter и setter для тех же самых типов значений proeprty.
+-->
 ---
 layout: default
 transition: none
@@ -1521,6 +1543,13 @@ const fa: FA = fb
 fa.setA(true)
 ```
 
+<!--
+В этом случае TypeScript нас поймает за руку и уже не позволит объект типа FB присвоить объекту типа FA. Типы оказываются несовместимыми, причём, потому, что несовместимы оказываются типы аргументов сеттеров. Getter ведёт себя ковариантно - и всё нормально, а setter - требует контравариантности.
+
+И вот тут у меня возникает вопрос, почему бы все модифицируемые properties не рассматривать аналогичным образом? Почему TypeScript слепо применяет ковариантность, когда она тут неуместна?
+
+Опять же, причина тому, что в мире уже много написано кода, который предполагает ковариантность properties объектов и вроде бы с этим живёт.
+-->
 ---
 layout: default
 ---
@@ -1551,6 +1580,10 @@ layout: default
 </div>
 </div>
 
+<!--
+Кстати, контравариантное поведение функциональных типов было не всегда. Оно появилось лишь с флагом strictFunctionTypes, который сейчас по-умолчанию включен в группу флагов strict. А до этого, по сути, типы аргументов функций и не проверялись вообще, применялось так называемое бивариантное поведение. Я боюсь представить, что тогда было.
+-->
+
 ---
 layout: default
 ---
@@ -1560,6 +1593,10 @@ layout: default
 [https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
 
 During development of this feature, *we discovered a large number of inherently unsafe class hierarchies*, including some in the DOM. Because of this, the setting only applies to functions written in function syntax, **not to those in method syntax**
+
+<!--
+Но почитаем внимательнее документацию, и там сказано, что strictFunctionTypes работает только для функциональных типов, но не для методов. Потому что когда его включали в язык, обнаружили много деклараций типов, полагающихся на небезопасное поведение
+-->
 
 ---
 layout: default
@@ -1589,7 +1626,7 @@ x.toLowerCase is not a function
 layout: default
 ---
 
-```ts {monaco-diff} { editorOptions: { renderSideBySide: false }, maxHeight: '100%' }
+```ts {monaco-diff} { editorOptions: { renderSideBySide: false, fontSize: '16px', maxHeight: '100%', readonly: true } }
 type Methodish = {
   func(x: string | number): void
 }
@@ -1746,6 +1783,10 @@ writablePerson = readonlyPerson;
 
 TypeScript doesn’t factor in whether properties on two types are `readonly` when checking whether those types are compatible, so `readonly` properties **can also change via aliasing**.
 
+</v-click>
+
+<v-click>
+
 *TypeScript не различает, есть ли у properties двух типов модификатор `readonly`, когда проверяет эти типы на совместимость, так что `readonly` properties **могут быть также изменены через другие ссылки на объект**.*
 
 </v-click>
@@ -1854,7 +1895,7 @@ layout: default
 layout: section
 ---
 
-# Предлагаем решения
+<h1><span class="number">4. </span>Предлагаем решения</h1>
 
 ---
 layout: default
@@ -1875,6 +1916,50 @@ layout: default
 - Если ограничить язык, то система типов может быть надёжна
 - Определить ограниченный язык правилами линтера
 - Отделять “небезопасный” код от безопасного более явной границей
+
+---
+layout: default
+---
+
+# ESLint для ограничения языка
+
+<div class="two-cols-grid">
+<div>
+
+- no-restricted-syntax
+- no-restricted-properties
+- no-restricted-imports
+- no-restricted-globals
+- no-restricted-types
+
+</div>
+<div>
+  <img src="./images/stathem.jpg" />
+</div>
+</div>
+
+---
+layout: section
+---
+
+<h1><span class="number">5. </span>Заключение</h1>
+
+---
+layout: default
+---
+
+# Выводы
+
+<v-clicks>
+
+- Иметь правильные типы в коде - must have
+- Совместимость типов в TypeScript !== отношение подтипов
+- Нарушить типовую безопасность проще, чем кажется
+- Best practices, соглашения, самодисциплина
+- Придётся писать тесты
+- RTFM! - Изучать свой основной язык, на котором пишешь
+
+</v-clicks>
 
 ---
 layout: default

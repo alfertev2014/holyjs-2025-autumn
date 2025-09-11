@@ -64,6 +64,7 @@ layout: default
 ---
 
 # Чем ещё владею
+
 <style>
 li {
   margin-block: 0;

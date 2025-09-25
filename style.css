@@ -32,8 +32,8 @@
 }
 
 .slidev-layout.cover h1 + p {
-  opacity: 0.9;
-  font-size: 1.5rem;
+  opacity: 1;
+  font-size: 1.6rem;
 }
 
 .slidev-layout h1 .number {
@@ -70,4 +70,9 @@ li.slidev-vclick-current {
 .error-output {
   color: #a31515;
   margin-block: 8px;
+}
+
+.twoslash .twoslash-meta-line.twoslash-error-line {
+  width: 100%;
+  text-wrap-mode: wrap;
 }

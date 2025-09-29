@@ -311,16 +311,11 @@ layout: section
 
 ---
 layout: default
-dragPos:
-  angry_cat: 71,123,312,_
 ---
 
 # TypeScript ругают за
 
 <div style="display: flex; flex-flow: row nowrap; gap: 30px">
-<div style="width: 40%">
-  <img src="./images/angry_cat.png" style="width: 100%" />
-</div>
 <div style="flex-grow: 1">
 
 - Ненадёжная система типов
@@ -329,6 +324,9 @@ dragPos:
 - Высокий порог входа (“трёх-этажные типы”)
 - Борьба с ошибками компиляции
 
+</div>
+<div style="width: 40%">
+  <img src="./images/angry_cat.png" style="width: 100%" />
 </div>
 </div>
 
@@ -631,13 +629,13 @@ m = b
 
 ```ts {all|6,10}{at:1}
 type C = {
-  a: A
+  prop: A
 }
 
-const c: C = { a: a }
-c.a = b
+const c: C = { prop: a }
+c.prop = b
 
-const f = (a: A) => { }
+const f = (arg: A) => { }
 
 f(b);
 ```
@@ -951,14 +949,14 @@ layout: default
 
 ```ts twoslash
 type A = {
-  a: string
+  foo: string
 }
 
-const a: A = { a: "string", foo: "bar" }
+const a: A = { foo: "the Answer", bar: 42 }
 
-const f = (a: A) => { }
+const f = (arg: A) => { }
 
-f({ a: "string", foo: "bar" })
+f({ foo: "the Answer", bar: 42 })
 ```
 
 <!--
@@ -972,24 +970,24 @@ layout: default
 ````md magic-move
 ```ts
 type A = {
-  a: string
+  foo: string
 }
 
-const a: A = { a: "string", foo: "bar" }
+const a: A = { foo: "the Answer", bar: 42 }
 
-const f = (a: A) => { }
+const f = (arg: A) => { }
 
-f({ a: "string", foo: "bar" })
+f({ foo: "the Answer", bar: 42 })
 ```
 ```ts {5}
 type A = {
-  a: string
+  foo: string
 }
 
-const b = { a: "string", foo: "bar" }
+const b = { foo: "the Answer", bar: 42 }
 const a: A = b
 
-const f = (a: A) => { }
+const f = (arg: A) => { }
 
 f(b)
 ```
@@ -1018,33 +1016,33 @@ layout: default
 ````md magic-move
 ```ts
 type A = {
-  a: string
-  b: boolean
-  c: number
+  foo: string
+  bar: boolean
+  baz: number
 }
 ```
 ```ts {5}
 type A = {
-  a: string
-  b: boolean
-  c: number
+  foo: string
+  bar: boolean
+  baz: number
   [key: string | number | symbol]: unknown
 }
 ```
 ```ts {6}
 type A = {
-  a: string
-  b: boolean
-  c: number
+  foo: string
+  bar: boolean
+  baz: number
   [key: string | number | symbol]: unknown
   (...args: unknown[]): unknown
 }
 ```
 ```ts {7}
 type A = {
-  a: string
-  b: boolean
-  c: number
+  foo: string
+  bar: boolean
+  baz: number
   [key: string | number | symbol]: unknown
   (...args: unknown[]): unknown
   new (...args: unknown[]): unknown
@@ -1086,16 +1084,16 @@ layout: default
 <div>
 
 ```ts {all|5,10}{at:2}
-type A = { a: string }
+type A = { foo: string }
 
 type B = {
-  a: string
-  foo: number
+  foo: string
+  bar: number
 }
 
 type C = {
-  a: string
-  foo: boolean
+  foo: string
+  bar: boolean
 }
 ```
 
@@ -1116,25 +1114,25 @@ layout: default
 ---
 
 ```ts {all|1,2|4|6|8}
-const b: B = { a: "b", foo: 42 }
-const c: C = { a: "c", foo: true }
+const b: B = { foo: "the Answer",   bar: 42 }
+const c: C = { foo: "the Question", bar: true }
 
-const ac: A = c
+const a: A = c
 
-const bac: B = { ...b, ...ac }
+const d: B = { ...b, ...a }
 
-console.log(bac.foo.toFixed())
+console.log(d.bar.toFixed())
 ```
 
 <div v-click="4" class="slidev-code error-output">
-TypeError: bac.foo.toFixed is not a function
+TypeError: d.bar.toFixed is not a function
 </div>
 
 <div v-click="5">
 
 ```ts {3}
 type A = {
-  a: string
+  foo: string
   [key: string | number | symbol]: unknown;
 }
 ```
@@ -1204,19 +1202,19 @@ layout: default
 ---
 
 ```ts {all|1,2|4,5|7|9}
-type A = { a: string | boolean }
-type B = { a: string }
+type A = { prop: string | boolean }
+type B = { prop: string }
 
-const b: B = { a: "foo" }
+const b: B = { prop: "foo" }
 const a: A = b
 
-a.a = true
+a.prop = true
 
-console.log("b.a", b.a.toUpperCase())
+console.log("b.prop", b.prop.toUpperCase())
 ```
 
 <div v-click="4" class="slidev-code error-output">
-TypeError: b.a.toUpperCase is not a function
+TypeError: b.prop.toUpperCase is not a function
 </div>
 
 <!--
@@ -1232,7 +1230,7 @@ class: text-center
 <br />
 <br />
 
-**Если `B <: A`, то `{ p: B } <: { p: A }` ?**
+**Если `B <: A`, то `{ prop: B } <: { prop: A }` ?**
 
 </div>
 
@@ -1249,13 +1247,13 @@ class: text-center
 
 Ковариантность:
 
-`B <: A  ==>  C<B> <: C<A>`
+`B <: A`  ===>  `C<B> <: C<A>`
 
 <br />
 
 Контравариантность:
 
-`B :> A  ==>  C<B> <: C<A>`
+`B :> A`  ===>  `C<B> <: C<A>`
 
 </div>
 
@@ -1269,13 +1267,13 @@ transition: slide-up
 
 ```ts {all|2,3,7,8}
 type FA = {
-  getA: () => string | boolean
-  setA: (arg: string | boolean) => string | boolean
+  getProp: () => string | boolean
+  setProp: (arg: string | boolean) => string | boolean
 }
 
 type FB = {
-  getA: () => string
-  setA: (arg: string) => string
+  getProp: () => string
+  setProp: (arg: string) => string
 }
 ```
 
@@ -1289,19 +1287,19 @@ transition: none
 
 ```ts twoslash
 type FA = {
-  getA: () => string | boolean
-  setA: (arg: string | boolean) => string | boolean
+  getProp: () => string | boolean
+  setProp: (arg: string | boolean) => string | boolean
 }
 
 type FB = {
-  getA: () => string
-  setA: (arg: string) => string
+  getProp: () => string
+  setProp: (arg: string) => string
 }
 // ---cut---
 // ...
-const fb: FB = { getA: () => "foo", setA: (arg) => "bar" }
+const fb: FB = { getProp: () => "the Question", setProp: (arg) => "the Answer" }
 const fa: FA = fb
-fa.setA(true)
+fa.setProp(true)
 ```
 
 <!--
@@ -1478,19 +1476,19 @@ dragPos:
 ---
 
 ```ts {2|all|9}{at:2}
-type A = { a: string | boolean }
-type B = { readonly a: string }
+type A = { prop: string | boolean }
+type B = { readonly prop: string }
 
-const b: B = { a: "foo" }
+const b: B = { prop: "foo" }
 const a: A = b
 
-a.a = true
+a.prop = true
 
-console.log("b.a", b.a.toUpperCase())
+console.log("b.prop", b.prop.toUpperCase())
 ```
 
 <div v-click="3" class="slidev-code error-output">
-TypeError: b.a.toUpperCase is not a function
+TypeError: b.prop.toUpperCase is not a function
 </div>
 
 <div v-drag="'readonly'" v-click.hide="1" style="font-size: 1.5rem">
@@ -1645,15 +1643,15 @@ layout: default
 ---
 
 ```ts {all|1-3|5-9}
-type A = { a: string }
-type B = { a: string, foo?: boolean }
-type C = { a: string, foo?: number }
+type A = { foo: string }
+type B = { foo: string, bar?: boolean }
+type C = { foo: string, bar?: number }
 
-const b: B = { a: "boo", foo: false }
+const b: B = { foo: "the Answer", bar: false }
 const a: A = b
 const c: C = a
 
-console.log("c.foo", c.foo?.toFixed())
+console.log("c.bar", c.bar?.toFixed())
 ```
 
 <div v-click="2" class="slidev-code error-output">

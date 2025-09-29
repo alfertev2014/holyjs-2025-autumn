@@ -56,7 +56,7 @@ layout: default
   </div>
   <div>
     <p><img src="./images/telegram.svg" style="display: inline; width: 32px; height: 32px" /> <b>Telegram</b>: <a href="https://t.me/alfertev2012">@alfertev2012</a></p>
-    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">alfertev2014</a></p>
+    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">@alfertev2014</a></p>
   </div>
   <div>
     <div class="two-cols-grid">
@@ -635,7 +635,7 @@ type C = {
 const c: C = { prop: a }
 c.prop = b
 
-const f = (arg: A) => { }
+const f = (arg: A) => { /* do something */ }
 
 f(b);
 ```
@@ -954,7 +954,7 @@ type A = {
 
 const a: A = { foo: "the Answer", bar: 42 }
 
-const f = (arg: A) => { }
+const f = (arg: A) => { /* do something */ }
 
 f({ foo: "the Answer", bar: 42 })
 ```
@@ -975,7 +975,7 @@ type A = {
 
 const a: A = { foo: "the Answer", bar: 42 }
 
-const f = (arg: A) => { }
+const f = (arg: A) => { /* do something */ }
 
 f({ foo: "the Answer", bar: 42 })
 ```
@@ -987,7 +987,7 @@ type A = {
 const b = { foo: "the Answer", bar: 42 }
 const a: A = b
 
-const f = (arg: A) => { }
+const f = (arg: A) => { /* do something */ }
 
 f(b)
 ```
@@ -1129,6 +1129,8 @@ TypeError: d.bar.toFixed is not a function
 </div>
 
 <div v-click="5">
+
+Даже если:
 
 ```ts {3}
 type A = {
@@ -1310,6 +1312,13 @@ fa.setProp(true)
 Опять же, причина тому, что в мире уже много написано кода, который предполагает ковариантность properties объектов и вроде бы с этим живёт.
 -->
 ---
+layout: section
+---
+
+# strictFunctionTypes
+
+
+---
 layout: default
 ---
 
@@ -1325,7 +1334,7 @@ layout: default
 
 <div class="text-center">
 
-Если `T2 :> T1, R2 <: R1`,
+Если `T2 :> T1` и `R2 <: R1`,
 
 то `(a: T2) => R2 <: (a: T1) => R1`.
 
@@ -1718,6 +1727,6 @@ layout: default
     </div>
     <br />
     <p><img src="./images/telegram.svg" style="display: inline; width: 32px; height: 32px" /> <b>Telegram</b>: <a href="https://t.me/alfertev2012">@alfertev2012</a></p>
-    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">alfertev2014</a></p>
+    <p><img src="./images/github.svg" style="display: inline; width: 32px; height: 32px" /> <b>GitHub</b>: <a href="https://github.com/alfertev2014">@alfertev2014</a></p>
   </div>
 </div>

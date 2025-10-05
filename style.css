@@ -1,8 +1,9 @@
 :root {
   font-size: 20px;
-  --slidev-code-font-size: 16px;
+  --slidev-code-font-size: 18px;
   --slidev-code-line-height: 1.5em;
   --slidev-code-margin: 0;
+  --slidev-code-background: white;
 }
 
 .slidev-layout h1 {
@@ -69,6 +70,7 @@ li.slidev-vclick-current {
 
 .error-output {
   color: #a31515;
+  background-color: #fafaff;
   margin-block: 8px;
 }
 

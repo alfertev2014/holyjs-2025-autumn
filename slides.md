@@ -135,7 +135,7 @@ dragPos:
   tapl: 578,122,300,_
   typing_rules: 101,167,309,_
   typing_rules2: 80,385,392,_
-  complex_types: 9,190,962,_
+  complex_types: 35,210,917,_
   mortal_combat: 257,250,482,_
   typescript_is_bad: 700,145,198,_
   bad_ts: 514,343,384,_
@@ -157,17 +157,17 @@ dragPos:
   <img v-drag="'typing_rules2'" src="./images/typing_rules2.png" />
 </div>
 <div v-click="[2, 3]">
-  <div v-drag="'complex_types'" style="padding: 20px">
+  <div v-drag="'complex_types'" style="padding: 10px; --slidev-code-font-size: 16px;">
   
 ```ts
 // Transform properties to getters
 type Getters<Type> = {
-    [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property]
+  [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property]
 };
 
 // Remove the 'kind' property
 type RemoveKindField<Type> = {
-    [Property in keyof Type as Exclude<Property, "kind">]: Type[Property]
+  [Property in keyof Type as Exclude<Property, "kind">]: Type[Property]
 };
 ```
 
@@ -196,8 +196,8 @@ type RemoveKindField<Type> = {
 </div>
 <div v-click="7">
   <div v-drag="'nothing'" style="font-size: 2rem"><b>Этого в докладе не будет</b></div>
-  <div v-drag="'nothing1'" style="background-color: #a80000"></div>
-  <div v-drag="'nothing2'" style="background-color: #a80000"></div>
+  <div v-drag="'nothing1'" style="background-color: rgb(200, 0, 0)"></div>
+  <div v-drag="'nothing2'" style="background-color: rgb(200, 0, 0)"></div>
 </div>
 
 <v-clicks>
@@ -236,7 +236,7 @@ hideInToc: true
 
 # План доклада
 
-1. Проблема строгости типов
+1. Проблема надёжности типов
 2. Ненадёжность системы типов TypeScript
 3. Отношение подтипов в TypeScript
 4. Проблемы подтипов в TypeScript на примерах
@@ -249,7 +249,7 @@ hideInToc: true
 layout: section
 ---
 
-<h1><span class="number">1. </span>Проблема строгости типов</h1>
+<h1><span class="number">1. </span>Проблема надёжности типов</h1>
 
 <!--
 Тут можно было бы много рассуждать, в каких случаях полезна статическая типизациа, а какие преимущества есть у динамической.
@@ -1080,40 +1080,12 @@ layout: default
 layout: default
 ---
 
-<div class="two-cols-grid" style="align-items: center">
-<div>
-
-```ts {all|5,10}{at:2}
+````md amgic-move
+```ts {all|1-3|5,6|8|10|12}
 type A = { foo: string }
+type B = { foo: string; bar: number }
+type C = { foo: string; bar: boolean }
 
-type B = {
-  foo: string
-  bar: number
-}
-
-type C = {
-  foo: string
-  bar: boolean
-}
-```
-
-</div>
-<div v-click="1" class="text-center" style="font-size: 2rem">
-  <p><b>B &lt;: A</b></p>
-  <br />
-  <p><b>C &lt;: A</b></p>
-</div>
-</div>
-
-<!--
-Но отсутствием точных типов связана проблема. Вот типы B и C, которые с точки зрения TypeScript являются подтипами типа A. Они оба расширяют тип A дополнительным property с одинаковым ключом bar, но с несовместимыми типами значений number и boolean.
--->
-
----
-layout: default
----
-
-```ts {all|1,2|4|6|8}
 const b: B = { foo: "the Answer",   bar: 42 }
 const c: C = { foo: "the Question", bar: true }
 
@@ -1123,25 +1095,28 @@ const d: B = { ...b, ...a }
 
 console.log(d.bar.toFixed())
 ```
+```ts {1}
+type A = { foo: string; [key: string | number | symbol]: unknown }
+type B = { foo: string; bar: number }
+type C = { foo: string; bar: boolean }
 
-<div v-click="4" class="slidev-code error-output">
+const b: B = { foo: "the Answer",   bar: 42 }
+const c: C = { foo: "the Question", bar: true }
+
+const a: A = c
+
+const d: B = { ...b, ...a }
+
+console.log(d.bar.toFixed())
+```
+````
+
+<div v-click="5" class="slidev-code error-output">
 TypeError: d.bar.toFixed is not a function
 </div>
 
-<div v-click="5">
-
-Даже если:
-
-```ts {3}
-type A = {
-  foo: string
-  [key: string | number | symbol]: unknown;
-}
-```
-
-</div>
-
 <!--
+Но отсутствием точных типов связана проблема. Вот типы B и C, которые с точки зрения TypeScript являются подтипами типа A. Они оба расширяют тип A дополнительным property с одинаковым ключом bar, но с несовместимыми типами значений number и boolean.
 В данном примере мы создаём объекты типов B и C
 
 1. Берём ссылку на объект c, рассматривая его как объект типа A.
@@ -1625,9 +1600,9 @@ layout: default
 </div>
 </div>
 
-<v-drag-arrow pos="225,330,0,-163"/>
+<v-drag-arrow pos="225,344,0,-177"/>
 
-<v-drag-arrow v-click="1" pos="271,239,0,91"/>
+<v-drag-arrow v-click="1" pos="271,249,-1,95"/>
 
 ---
 layout: default

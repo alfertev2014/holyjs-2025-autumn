@@ -17,7 +17,7 @@
 }
 
 .slidev-layout li {
-  line-height: 1.5em;
+  line-height: 1.75em;
   margin-bottom: 0.5rem;
   li {
     list-style-type: disc;
@@ -37,7 +37,7 @@
   font-size: 1.6rem;
 }
 
-.slidev-layout h1 .number {
+.text-brand-accent-color {
   color: #2d79c7;
 }
 

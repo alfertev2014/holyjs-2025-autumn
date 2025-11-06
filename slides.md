@@ -258,23 +258,22 @@ layout: default
 layout: default
 ---
 
-# Для кого?
+# Если вы
 
 <v-clicks>
 
-- **Начинающие** в TypeScript
-- **Миддлы** с опытом
-- Пришедшие в TypeScript **из других языков**
+- 👶 Начинающие в TypeScript
+- 😎 Миддлы с опытом
+- 👽 Пришедшие в TypeScript из других языков
 
 </v-clicks>
 
-<v-click>
-
 <br />
+<div v-click class="text-center">
 
 *Полезно для понимания **возможностей** и **ограничений** TypeScript*
 
-</v-click>
+</div>
 
 <!--
 Полезно будет послушать как для начинающих, так и для разработчиков с некоторым опытом.
@@ -590,6 +589,17 @@ Union и Intersection-типы соответствуют объединению
 layout: default
 ---
 
+# Литеральные типы (Unit Types)
+
+- `1, 2, 42, 100500... <: number`
+- `"foo", "bar", "baz"... <: string`
+- `true, false <: boolean`
+- `1n, 2n, 42n, 100500n... <: bigint`
+
+---
+layout: default
+---
+
 # Подтипы объектов
 
 <div class="two-cols-grid">
@@ -728,59 +738,59 @@ layout: section
 ---
 layout: default
 dragPos:
-  o: 471,45,48,_
+  o: 475,45,48,_
   a: 110,134,178,43
-  b: 398,133,178,43
-  c: 689,134,156,43
-  ac: 355,246,275,43
-  bc: 646,247,286,43
+  b: 402,132,178,43
+  c: 702,134,156,43
+  ac: 355,250,275,43
+  bc: 646,250,286,43
   abc: 294,364,405,43
-  ab: 42,249,308,43
+  ab: 42,250,308,43
 ---
 
-<div v-drag="'o'">
+<div v-drag="'o'"  v-click="3">
 
 ```ts
 { }
 ```
 
 </div>
-<div v-drag="'a'">
+<div v-drag="'a'" v-click="2">
 
 ```ts
-{ a: string;  }
+{ a: string; }
 ```
 
 </div>
-<div v-drag="'b'">
+<div v-drag="'b'" v-click="2">
 
 ```ts
 { b: boolean; }
 ```
 
 </div>
-<div v-drag="'c'">
+<div v-drag="'c'" v-click="2">
 
 ```ts
 { c: number }
 ```
 
 </div>
-<div v-drag="'ab'">
+<div v-drag="'ab'" v-click="1">
 
 ```ts
 { a: string; b: boolean; }
 ```
 
 </div>
-<div v-drag="'ac'">
+<div v-drag="'ac'" v-click="1">
 
 ```ts
 { a: string; c: number }
 ```
 
 </div>
-<div v-drag="'bc'">
+<div v-drag="'bc'" v-click="1">
 
 ```ts
 { b: boolean; c: number }
@@ -793,6 +803,24 @@ dragPos:
 { a: string; b: boolean; c: number }
 ```
 
+</div>
+<div v-click="1">
+<Arrow x1="450" y1="360" x2="220" y2="300" />
+<Arrow x1="500" y1="360" x2="500" y2="300" />
+<Arrow x1="550" y1="360" x2="780" y2="300" />
+</div>
+<div v-click="2">
+<Arrow x1="200" y1="240" x2="200" y2="180" />
+<Arrow x1="250" y1="240" x2="475" y2="180" />
+<Arrow x1="475" y1="240" x2="250" y2="180" />
+<Arrow x1="525" y1="240" x2="750" y2="180" />
+<Arrow x1="750" y1="240" x2="525" y2="180" />
+<Arrow x1="800" y1="240" x2="800" y2="180" />
+</div>
+<div v-click="3">
+<Arrow x1="220" y1="130" x2="475" y2="90" />
+<Arrow x1="500" y1="130" x2="500" y2="90" />
+<Arrow x1="780" y1="130" x2="525" y2="90" />
 </div>
 
 <!--
@@ -856,9 +884,7 @@ image: /images/union_intersection.svg
 layout: default
 ---
 
-# Отношение подтипов
-
-как отношение частичного порядка
+# Отношение частичного порядка
 
 <div class="two-cols-grid">
 <div class="text-right">
@@ -878,7 +904,7 @@ layout: default
 </div>
 <div>
 
-`A <: B & B <: C ===> A <: C`
+`(A <: B) & (B <: C) ===> A <: C`
 
 </div>
 <div class="text-right">
@@ -925,7 +951,7 @@ layout: default
 
 <div>
 
-При записи - как `unknown`
+Как `unknown`
 
 ```ts {all|3}{at:1}
 const b: number = 42
@@ -936,7 +962,7 @@ const a: any = b
 </div>
 <div>
 
-При чтении - как `never` `*`
+Как `never`
 
 ```ts {all|3}{at:1}
 const a: any = 42
@@ -946,7 +972,7 @@ const b: string = a
 // const c: never = a
 ```
 
-`*` если ожидаемый тип не `never`
+*(если ожидаемый тип не `never`)*
 
 </div>
 </div>
@@ -961,10 +987,15 @@ layout: default
 
 # Подытожим
 
+<v-clicks>
+
 - Типы - это множества допустимых значений
 - Отношение подтипов соответствует отношению вложения множеств
-- Математическое отношение подтипов образует решётку типов
-- Отношение совместимости типов в TypeScript слабее строгого отношения подтипов
+- Отношение подтипов - отношение частичного порядка
+- Отношение подтипов образует решётку типов
+- Совместимость типов в TypeScript !== строгое отношение подтипов
+
+</v-clicks>
 
 ---
 layout: section
@@ -990,6 +1021,13 @@ TypeScript **v5.9.3**
 <!--
 Что ж, давайте перейдём к примерам кода. Пробовать будем на свежей версии TypeScript, конфиг оставим рекомендуемый по-умолчанию, в котором, конечно же, включены флаги strict-режима.
 -->
+
+---
+layout: section
+---
+
+# Структурная типизация
+
 ---
 layout: default
 ---
@@ -1358,29 +1396,49 @@ class: text-center
 -->
 ---
 layout: default
-class: text-center
 ---
 
-<div style="font-size: 1.5rem">
+<div class="two-cols-grid" style="grid-template-columns: 1fr 2fr">
+<div class="text-right" v-click="1">
 
-Ковариантность:
+**Ковариантность**
 
-`B <: A`  ===>  `C<B> <: C<A>`
+</div>
+<div class="text-center" v-click="1">
 
-<br />
+`B <: A  ===>  C<B> <: C<A>`
 
-Контравариантность:
+</div>
+<div class="text-right" v-click="2">
 
-`A <: B`  ===>  `C<B> <: C<A>`
+**Контравариантность**
 
-Бивариантность:
+</div>
+<div class="text-center"  v-click="2">
+
+`A <: B  ===>  C<B> <: C<A>`
+
+</div>
+<div class="text-right" v-click="3">
+
+**Инвариантность**
+
+</div>
+<div class="text-center" v-click="3">
+
+`B <: A  =/=>  C<B> <: C<A>`
+
+</div>
+<div class="text-right" v-click="4">
+
+**Бивариантность**
+
+</div>
+<div class="text-center" v-click="4">
 
 Ковариантность и контравариантность одновременно.
 
-Инвариантность:
-
-При любых `A` и `B`: не `C<A> <: C<B>` и не `C<B> <: C<A>`
-
+</div>
 </div>
 
 <!--
@@ -1394,12 +1452,12 @@ transition: slide-up
 ```ts {all|2,3,7,8}
 type FA = {
   getProp: () => string | boolean
-  setProp: (arg: string | boolean) => string | boolean
+  setProp: (arg: string | boolean) => void
 }
 
 type FB = {
   getProp: () => string
-  setProp: (arg: string) => string
+  setProp: (arg: string) => void
 }
 ```
 
@@ -1414,16 +1472,16 @@ transition: none
 ```ts twoslash
 type FA = {
   getProp: () => string | boolean
-  setProp: (arg: string | boolean) => string | boolean
+  setProp: (arg: string | boolean) => void
 }
 
 type FB = {
   getProp: () => string
-  setProp: (arg: string) => string
+  setProp: (arg: string) => void
 }
 // ---cut---
 // ...
-const fb: FB = { getProp: () => "the Question", setProp: (arg) => "the Answer" }
+const fb: FB = { getProp: () => "...", setProp: (arg) => {/* ... */} }
 const fa: FA = fb
 fa.setProp(true)
 ```
@@ -1502,11 +1560,10 @@ During development of this feature, *we discovered a large number of inherently 
 layout: default
 ---
 
-```ts {all|2|11|6,13}
+```ts {all|2|10|5,12}
 type Methodish = {
   func(x: string | number): void
 }
-
 function fn(x: string) {
   console.log("Hello, " + x.toLowerCase())
 }
@@ -1530,11 +1587,9 @@ layout: default
 type Methodish = {
   func(x: string | number): void
 }
-
 function fn(x: string) {
   console.log("Hello, " + x.toLowerCase())
 }
-
 const m: Methodish = {
   func: fn,
 }
@@ -1543,11 +1598,9 @@ m.func(10)
 type Methodish = {
   func: (x: string | number) => void
 }
-
 function fn(x: string) {
   console.log("Hello, " + x.toLowerCase())
 }
-
 const m: Methodish = {
   func: fn,
 }
@@ -1562,11 +1615,9 @@ layout: default
 type Methodish = {
   func: (x: string | number) => void
 }
-
 function fn(x: string) {
   console.log("Hello, " + x.toLowerCase())
 }
-
 const m: Methodish = {
   func: fn,
 }
@@ -1608,7 +1659,7 @@ dragPos:
   captain: 459,54,448,_
 ---
 
-```ts {2|all|9}{at:2}
+```ts {2|5|9}{at:2}
 type A = { prop: string | boolean }
 type B = { readonly prop: string }
 
@@ -1732,7 +1783,7 @@ layout: default
 <br />
 <div class="two-cols-grid" style="grid-template-columns: 1fr 3fr; align-items: center">
 <div class="text-center" style="font-size: 2rem">
-<p><b>&lt;:</b></p>
+<p><b>=</b></p>
 </div>
 <div>
 
@@ -1801,13 +1852,21 @@ layout: default
 layout: default
 ---
 
-# Отношение совместимости типов в TypeScript
+# Cовместимость типов в TypeScript
+
+<v-clicks>
 
 - Не транзитивное
 - Не антисимметричное
 
-- Содержит циклы
-- Неявляется отношением частичного порядка
+</v-clicks>
+
+<br />
+<div v-click class="text-center" style="font-size: 1.5rem">
+
+**_Не является отношением частичного порядка_**
+
+</div>
 
 ---
 layout: default
@@ -1828,9 +1887,9 @@ layout: default
 
 <v-clicks>
 
-- Cовместимость типов в TypeScript не является отношением частичного порядка
-- Отсутствие ошибок компиляции не гарантирует отсутствия ошибок в runtime
-- Невозможно выразить контракты, проверяемые статически
+- Cовместимость типов в TypeScript - не отношение частичного порядка
+- Отсутствие ошибок компиляции `=/=>` отсутствие ошибок в runtime
+- Трудно выразить контракты, проверяемые статически
 
 </v-clicks>
 
@@ -1851,11 +1910,15 @@ layout: default
 - Иметь правильные типы в коде - must have
 - Совместимость типов в TypeScript !== отношение подтипов
 - Компилируется без ошибок !== не упадёт в runtime
-- Best practices, соглашения, самодисциплина
-- Придётся писать тесты
-- RTFM! - Изучайте свой основной язык, на котором пишете
+- Best practices, соглашения, самодисциплина, тесты
 
 </v-clicks>
+
+<div v-click class="text-center" style="font-size: 1.5rem">
+
+**_Изучайте свой основной язык, на котором пишете_**
+
+</div>
 
 ---
 layout: default

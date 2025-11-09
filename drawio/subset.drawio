@@ -1,16 +1,16 @@
 <mxfile host="65bd71144e">
     <diagram id="maUeNQ5ymJ09nGy8I0sm" name="Page-1">
-        <mxGraphModel dx="989" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1162" dy="661" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="" style="ellipse;whiteSpace=wrap;html=1;align=right;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                <mxCell id="2" value="" style="ellipse;whiteSpace=wrap;html=1;align=right;fillColor=#76608a;strokeColor=#432D57;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="160" y="270" width="470" height="330" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="B" style="ellipse;whiteSpace=wrap;html=1;fontSize=64;fontStyle=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                <mxCell id="3" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;B&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fontSize=64;fontStyle=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="180" y="312.5" width="295" height="245" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="A" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=64;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="4" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;A&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=64;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="520" y="420" width="60" height="30" as="geometry"/>
                 </mxCell>
             </root>

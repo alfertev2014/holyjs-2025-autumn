@@ -4,49 +4,87 @@
   --slidev-code-line-height: 1.5em;
   --slidev-code-margin: 0;
   --slidev-code-background: white;
+  --brand-primary-color: #2d79c7;
+  --brand-secondary-color: #c72d79;
 }
 
-.slidev-layout h1 {
-  font-weight: 800;
-  font-size: 2rem;
-}
-
-.slidev-layout a {
-  font-size: 0.8rem;
-  color: #20578d;
-}
-
-.slidev-layout li {
-  line-height: 1.75em;
-  margin-bottom: 0.5rem;
-  li {
-    list-style-type: disc;
+:root.dark {
+  --slidev-code-background: #100b00;
+  --slidev-slide-content-background: rgb(16, 12, 0);
+  --brand-primary-color: #ffcb6b;
+  --brand-secondary-color: #c792ea;
+  --brand-third-color: #89ddff;
+  .slidev-slide-container .slidev-slide-content .slidev-page {
+    background-color: var(--slidev-slide-content-background);
   }
 }
 
-.slidev-layout li::marker {
-  color: #2d79c7;
-}
 
-.slidev-layout h1 + p {
-  opacity: 0.8;
-}
 
-.slidev-layout.cover h1 + p {
-  opacity: 1;
-  font-size: 1.6rem;
-}
+.slidev-layout {
+  h1 {
+    font-weight: 800;
+    font-size: 2rem;
+  }
 
-.brand-accent-color {
-  color: #2d79c7;
-}
+  a {
+    font-size: 0.8rem;
+    color: #82aaff;
+  }
 
-.slidev-layout.section h1 + p {
-  font-size: 1.75rem;
-}
+  li {
+    line-height: 1.75em;
+    margin-bottom: 0.5rem;
+    li {
+      list-style-type: disc;
+    }
+  }
 
-.slidev-layout.section h1 {
-  font-size: 2.75rem;
+  li::marker {
+    color: var(--brand-primary-color);
+  }
+  ol {
+    li::marker {
+      color: var(--brand-third-color);
+    }
+  }
+
+  h1 + p {
+    opacity: 0.8;
+  }
+
+  &.cover h1 + p {
+    opacity: 1;
+    font-size: 1.6rem;
+  }
+
+  &.section {
+    h1 + p {
+      font-size: 1.75rem;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+    }
+  }
+
+  em {
+    color: color-mix(in srgb, var(--brand-secondary-color), white);
+  }
+  strong {
+    color: color-mix(in srgb, var(--brand-third-color), white);
+    em {
+      color: inherit;
+    }
+  }
+
+  code {
+    color: #ddd;
+  }
+
+  .slidev-code .slidev-code-dishonored {
+    opacity: 0.4;
+  }
 }
 
 li.slidev-vclick-current {
@@ -69,12 +107,17 @@ li.slidev-vclick-current {
 }
 
 .error-output {
-  color: #a31515;
-  background-color: #fafaff;
+  color: #ff4545;
+  background-color: black;
   margin-block: 8px;
 }
 
 .twoslash .twoslash-meta-line.twoslash-error-line {
   width: 100%;
   text-wrap-mode: wrap;
+}
+
+.brand-accent-color {
+  color: var(--brand-third-color);
+  font-weight: 600;
 }

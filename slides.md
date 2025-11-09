@@ -1,9 +1,9 @@
 ---
-theme: default
+theme: ./theme
 title: Дырявое решето типов
 info: Презентация к докладу на HolyJS 2025 Autumn
-# apply unocss classes to the current slide
 class: text-center
+colorSchema: dark
 drawings:
   persist: false
 transition: none
@@ -15,12 +15,12 @@ background: ./images/grid_cover.png
 ---
 
 <style>
-  .dark-shadow {
-    background-color: #00000055;
-    box-shadow: 0 0 15px 8px #00000055;
+  .title-dark-shadow {
+    background-color: #00000088;
+    box-shadow: 0 0 15px 8px #00000088;
   }
 </style>
-<div class="dark-shadow" style="background-color: #00000055; padding-block: 0.3rem; margin-inline: -70px">
+<div class="title-dark-shadow" style="background-color: #00000088; padding-block: 0.3rem; margin-inline: -70px">
 
 # Дырявое решето типов
 
@@ -29,7 +29,7 @@ background: ./images/grid_cover.png
 </div>
 <br />
 
-<div class="dark-shadow" style="position: absolute; bottom: 100px; left: 0; right: 0; font-style: italic; padding-block: 0.1rem">
+<div class="title-dark-shadow" style="position: absolute; bottom: 100px; left: 0; right: 0; font-style: italic; padding-block: 0.1rem">
 <p style="font-size: 1.5rem; margin: 0"><b>Василий Алфертьев</b></p>
 <p style="font-size: 1rem; margin: 0">Frontend-разработчик, "Открытые решения"</p>
 </div>
@@ -50,7 +50,7 @@ layout: default
   }
 </style>
 <div class="two-cols-grid">
-  <div class="two-cols-grid"><img src="./images/vasya.jpg" style="border-radius: 50%" /><div><b>Василий Алфертьев</b></div></div>
+  <div class="two-cols-grid text-xl"><img src="./images/vasya.jpg" style="border-radius: 50%" /><div><b>Василий Алфертьев</b></div></div>
   <div>
     <img src="./images/osinit.png" style="width: 300px" />
   </div>
@@ -133,19 +133,19 @@ li {
 layout: default
 transition: my-transition
 dragPos:
-  tapl: 578,122,300,_
-  typing_rules: 101,167,309,_
+  tapl: 542,122,300,_
+  typing_rules: 101,173,309,_
   typing_rules2: 80,385,392,_
   complex_types: 35,210,917,_
   mortal_combat: 221,257,588,_
   typescript_is_bad: 700,145,198,_
   bad_ts: 514,343,384,_
-  prototype_chain: 89,314,552,_
+  prototype_chain: 89,323,552,_
   proxy: 652,94,291,_
   devid: 646,304,223,_
   tsgo: 307,117,653,_
   tsgo_link: 462,376,435,_
-  nothing: 334,394,603,_
+  nothing: 333,394,603,_
   nothing1: 71,252,369,20,-48
   nothing2: 69,252,372,20,46
 ---
@@ -183,7 +183,7 @@ type RemoveKindField<Type> = {
   <img v-drag="'devid'" src="./images/devid.png" />
 </div>
 <div v-click="[5, 6]">
-  <img v-drag="'typescript_is_bad'" src="./images/typescript_is_bad.png" />
+  <img v-drag="'typescript_is_bad'" src="./images/typescript_is_bad.png" style="border-radius: 20px" />
   <div v-drag="'bad_ts'" style="text-align: right">
     <p><b>Why TypeScript is Bad</b></p>
     <p><a href="https://t.me/why_typescript_is_bad">https://t.me/why_typescript_is_bad</a></p>
@@ -365,17 +365,17 @@ layout: default
 
 <style scoped>
   p {
-    background-color: #fff;
-    box-shadow: 0 0 8px 5px #fff;
+    background-color: var(--slidev-slide-content-background);
+    box-shadow: 0 0 8px 5px var(--slidev-slide-content-background);
   }
 </style>
 
 # И как с этим жить?
 
-<img src="./images/house_of_cards.jpg" style="position: absolute; z-index: -100; right: 100px; bottom: 0; width: 642px" />
+<img src="./images/house_of_cards.png" style="position: absolute; right: 200px; bottom: 0; width: 540px" />
 
+<div style="text-align: center; font-size: 1.7rem; position: relative; z-index: 1c">
 <br />
-<div style="text-align: center; font-size: 1.7rem">
 <v-clicks>
 
 Мы **_хотим_**, чтобы типы в коде были верными
@@ -469,14 +469,14 @@ layout: image
 image: ./images/backward_compatibility.jpg
 dragPos:
   good: 711,74,166,187
-  back: 57,204,176,214
+  back: 53,218,176,214
   ts: 372,105,126,_
 ---
 
-<div v-drag="'good'" style="text-align: right; font-size: 2rem">
+<div v-drag="'good'" style="text-align: right; font-size: 2rem; color: black">
   <b>Сделать всё по хорошему</b>
 </div>
-<div v-drag="'back'" style="font-size: 2rem">
+<div v-drag="'back'" style="font-size: 2rem; color: black">
   <b>Обратная совмести-мость</b>
 </div>
 <img v-drag="'ts'" src="./images/ts_logo.png" />
@@ -598,6 +598,7 @@ layout: default
 
 ---
 layout: default
+transition: slide-up
 ---
 
 # Подтипы объектов
@@ -886,10 +887,10 @@ layout: default
 
 # Отношение частичного порядка
 
-<div class="two-cols-grid">
+<div class="two-cols-grid" style="grid-template-columns: 1fr 2fr">
 <div class="text-right">
 
-Рефлексивное
+**Рефлексивное**
 
 </div>
 <div>
@@ -899,7 +900,7 @@ layout: default
 </div>
 <div class="text-right">
 
-Транзитивное
+**Транзитивное**
 
 </div>
 <div>
@@ -909,7 +910,7 @@ layout: default
 </div>
 <div class="text-right">
 
-Антисимметричное
+**Антисимметричное**
 
 </div>
 <div>
@@ -1276,20 +1277,6 @@ const d: B = { ...b, ...a }
 
 console.log(d.bar.toFixed())
 ```
-```ts {1}
-type A = { foo: string; [key: string | number | symbol]: unknown }
-type B = { foo: string; bar: number }
-type C = { foo: string; bar: boolean }
-
-const b: B = { foo: "the Answer",   bar: 42 }
-const c: C = { foo: "the Question", bar: true }
-
-const a: A = c
-
-const d: B = { ...b, ...a }
-
-console.log(d.bar.toFixed())
-```
 ````
 
 <div v-click="5" class="slidev-code error-output">
@@ -1387,7 +1374,7 @@ class: text-center
 <br />
 <br />
 
-**Если `B <: A`, то `{ prop: B } <: { prop: A }` ?**
+`B <: A ===> { prop: B } <: { prop: A }` **?**
 
 </div>
 
@@ -1397,6 +1384,8 @@ class: text-center
 ---
 layout: default
 ---
+
+# Вариантность типов
 
 <div class="two-cols-grid" style="grid-template-columns: 1fr 2fr">
 <div class="text-right" v-click="1">
@@ -1508,7 +1497,7 @@ layout: default
 
 [https://www.typescriptlang.org/tsconfig/#strictFunctionTypes]
 
-<div class="two-cols-grid" style="grid-template-columns: 2fr 1fr">
+<div class="two-cols-grid" style="grid-template-columns: 3fr 1fr">
 
 <div>
 
@@ -1587,24 +1576,10 @@ layout: default
 type Methodish = {
   func(x: string | number): void
 }
-function fn(x: string) {
-  console.log("Hello, " + x.toLowerCase())
-}
-const m: Methodish = {
-  func: fn,
-}
-m.func(10)
 ~~~
 type Methodish = {
   func: (x: string | number) => void
 }
-function fn(x: string) {
-  console.log("Hello, " + x.toLowerCase())
-}
-const m: Methodish = {
-  func: fn,
-}
-m.func(10)
 ```
 
 ---
@@ -1656,7 +1631,7 @@ layout: section
 layout: default
 dragPos:
   readonly: 68,321,408,_
-  captain: 459,54,448,_
+  captain: 482,54,448,_
 ---
 
 ```ts {2|5|9}{at:2}
@@ -1677,7 +1652,7 @@ TypeError: b.prop.toUpperCase is not a function
 
 <div v-drag="'readonly'" v-click.hide="1" style="font-size: 1.5rem">
 
-Да просто влепи **readonly**!
+Да просто влепи `readonly`!
 
 </div>
 
@@ -1928,10 +1903,10 @@ layout: default
 
 <div class="two-cols-grid">
   <div>
-    <span style="display: inline-block;padding: 0.8rem; border-width: 6px; border-color: #2d79c7">
+    <span style="display: inline-block;padding: 0.8rem; border-width: 6px; border-color: var(--brand-primary-color)">
       <img src="./images/qr-code.png" style="width: 180px" />
     </span>
-    <p><i>Полезные ссылки и <br />матетиалы к докладу</i></p>
+    <p><i>Полезные ссылки и <br />материалы к докладу</i></p>
   </div>
   <div>
     <div class="two-cols-grid" style="align-items: center">

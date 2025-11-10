@@ -238,7 +238,7 @@ layout: default
 
 <v-clicks>
 
-- 🛡 **Надёжность** систем типов *(soundness)*
+- 🛡 **Надёжность** системы типов *(soundness)*
 - 💎 **Отношение подтипов** в теории *(решётка типов)*
 - 🔩 **Совместимость типов** в TypeScript *(type compatibility)*
 - 💥 **Примеры** ошибок в runtime *(когда компилятор "молчит")*
@@ -372,7 +372,7 @@ layout: default
 
 # И как с этим жить?
 
-<img src="./images/house_of_cards.png" style="position: absolute; right: 200px; bottom: 0; width: 540px" />
+<img src="./images/house_of_cards.png" style="position: absolute; right: 200px; bottom: 50px; width: 540px" />
 
 <div style="text-align: center; font-size: 1.7rem; position: relative; z-index: 1c">
 <br />
@@ -468,15 +468,15 @@ layout: default
 layout: image
 image: ./images/backward_compatibility.jpg
 dragPos:
-  good: 711,74,166,187
-  back: 53,218,176,214
+  good: 696,68,208,187
+  back: 49,220,201,214
   ts: 372,105,126,_
 ---
 
-<div v-drag="'good'" style="text-align: right; font-size: 2rem; color: black">
+<div v-drag="'good'" style="text-align: right; font-size: 2rem; color: white">
   <b>Сделать всё по хорошему</b>
 </div>
-<div v-drag="'back'" style="font-size: 2rem; color: black">
+<div v-drag="'back'" style="font-size: 2rem; color: white">
   <b>Обратная совмести-мость</b>
 </div>
 <img v-drag="'ts'" src="./images/ts_logo.png" />

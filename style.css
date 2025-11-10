@@ -9,8 +9,8 @@
 }
 
 :root.dark {
-  --slidev-code-background: #100b00;
-  --slidev-slide-content-background: rgb(16, 12, 0);
+  --slidev-code-background: rgb(11, 9, 0);
+  --slidev-slide-content-background: rgb(11, 9, 0);
   --brand-primary-color: #ffcb6b;
   --brand-secondary-color: #c792ea;
   --brand-third-color: #89ddff;
@@ -68,22 +68,15 @@
     }
   }
 
-  em {
-    color: color-mix(in srgb, var(--brand-secondary-color), white);
-  }
-  strong {
-    color: color-mix(in srgb, var(--brand-third-color), white);
-    em {
-      color: inherit;
-    }
-  }
-
   code {
-    color: #ddd;
+    color: #eee;
   }
 
   .slidev-code .slidev-code-dishonored {
     opacity: 0.4;
+  }
+  .shiki .line, .shiki-magic-move-item {
+    font-weight: 600;
   }
 }
 
@@ -110,11 +103,13 @@ li.slidev-vclick-current {
   color: #ff4545;
   background-color: black;
   margin-block: 8px;
+  font-weight: 600;
 }
 
 .twoslash .twoslash-meta-line.twoslash-error-line {
   width: 100%;
   text-wrap-mode: wrap;
+  font-weight: 600;
 }
 
 .brand-accent-color {

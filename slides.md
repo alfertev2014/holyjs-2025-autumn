@@ -131,7 +131,6 @@ li {
 
 ---
 layout: default
-transition: my-transition
 dragPos:
   tapl: 542,122,300,_
   typing_rules: 101,173,309,_
@@ -269,7 +268,7 @@ layout: default
 </v-clicks>
 
 <br />
-<div v-click class="text-center">
+<div v-click class="text-center text-xl">
 
 *Полезно для понимания **возможностей** и **ограничений** TypeScript*
 
@@ -317,11 +316,33 @@ style: "background-color: black; color: white; text-wrap: balance"
 layout: default
 ---
 
+<style scoped>
+.slidev-layout ol li {
+  margin-block: 0;
+  ul li {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+    &::marker {
+      opacity: 0.6;
+    }
+  }
+}
+</style>
+
 # План доклада
 
 1. Ненадёжность системы типов TypeScript
 2. Отношение подтипов и TypeScript
+   - Отношение подтипов
+   - Решётка типов
+   - Совместимость типов в TypeScript
 3. Проблемы совместимости типов в TypeScript на примерах
+   - Структурная типизация
+   - "Точные" типы объектов
+   - Подтипы и вариантность
+   - strictFunctionTypes
+   - readonly
+   - Совмещаем несовместимое
 4. Заключение
 
 <!--
@@ -422,7 +443,7 @@ layout: default
 
 # Ненадёжная система типов
 
-<style>
+<style scoped>
   .slidev-vclick-hidden {
     display: none;
   }
@@ -534,7 +555,7 @@ layout: default
 layout: section
 ---
 
-# Отношение подтипов
+<h1>Отношение подтипов</h1>
 
 ---
 layout: section
@@ -591,10 +612,25 @@ layout: default
 
 # Литеральные типы (Unit Types)
 
-- `1, 2, 42, 100500... <: number`
-- `"foo", "bar", "baz"... <: string`
-- `true, false <: boolean`
-- `1n, 2n, 42n, 100500n... <: bigint`
+<style>
+  code.ts-type {
+    color: #b2ccd6;
+  }
+  code.number-literal {
+    color: #f78c6c;
+  }
+  code.string-literal {
+    color: #c3e88d;
+  }
+</style>
+
+<ul>
+<li><code class="number-literal">1, 2, 42, 100500...</code> <b>&lt;:</b> <code class="ts-type">number</code></li>
+<li><code class="number-literal">1n, 2n, 42n, 100500n...</code> <b>&lt;:</b> <code class="ts-type">bigint</code></li>
+<li><code class="string-literal">"foo", "bar", "baz"...</code> <b>&lt;:</b> <code class="ts-type">string</code></li>
+<li><code>true, false</code> <b>&lt;:</b> <code class="ts-type">boolean</code></li>
+
+</ul>
 
 ---
 layout: default
@@ -730,7 +766,7 @@ type B = {
 layout: section
 ---
 
-# Решётка типов
+<h1>Решётка типов</h1>
 
 <!--
 Но сначала посмотрим, во что вырисовывается отношение подтипов в целом.
@@ -921,6 +957,12 @@ layout: default
 </div>
 
 ---
+layout: section
+---
+
+<h1>Совместимость типов в TypeScript</h1>
+
+---
 layout: default
 ---
 
@@ -1002,7 +1044,7 @@ layout: default
 layout: section
 ---
 
-<h1><span class="brand-accent-color">3. </span>Проблемы подтипов в TypeScript на примерах</h1>
+<h1><span class="brand-accent-color">3. </span>Проблемы совместимости типов в TypeScript на примерах</h1>
 
 ---
 layout: default
@@ -1027,7 +1069,7 @@ TypeScript **v5.9.3**
 layout: section
 ---
 
-# Структурная типизация
+<h1>Структурная типизация</h1>
 
 ---
 layout: default
@@ -1120,7 +1162,7 @@ const a3: {
 layout: section
 ---
 
-# Excess properties
+<h1>"Точные" типы объектов</h1>
 
 <!--
 Лишние или excess properties
@@ -1161,7 +1203,7 @@ const f = (arg: A) => { /* do something */ }
 
 f({ foo: "the Answer", bar: 42 })
 ```
-```ts {5}
+```ts {5|6,10}
 type A = {
   foo: string
 }
@@ -1336,7 +1378,7 @@ TypeScript не различает и не учитывает:
 layout: section
 ---
 
-# Подтипы и вариантность
+<h1>Подтипы и вариантность</h1>
 
 <!--
 Вернёмся к вопросу, в каких случаях стоит считать объектные типы подтипами.
@@ -1486,7 +1528,7 @@ fa.setProp(true)
 layout: section
 ---
 
-# strictFunctionTypes
+<h1>strictFunctionTypes</h1>
 
 
 ---
@@ -1625,7 +1667,7 @@ const defaultOptions: Options = ['property'];
 layout: section
 ---
 
-# readonly
+<h1>readonly</h1>
 
 ---
 layout: default
@@ -1747,7 +1789,7 @@ layout: default
 layout: section
 ---
 
-# Совмещаем несовместимое
+<h1>Совмещаем несовместимое</h1>
 
 ---
 layout: default
@@ -1862,6 +1904,7 @@ layout: default
 
 <v-clicks>
 
+- Система типов TypeScript имеет проблемы, которые не ловятся линтером
 - Cовместимость типов в TypeScript - не отношение частичного порядка
 - Отсутствие ошибок компиляции `=/=>` отсутствие ошибок в runtime
 - Трудно выразить контракты, проверяемые статически

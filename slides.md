@@ -994,7 +994,7 @@ layout: default
 
 <div>
 
-Как `unknown`
+- **Ожидаемый тип**
 
 ```ts {all|3}{at:1}
 const b: number = 42
@@ -1005,7 +1005,7 @@ const a: any = b
 </div>
 <div>
 
-Как `never`
+- **Актуальный тип**
 
 ```ts {all|3}{at:1}
 const a: any = 42
@@ -1015,7 +1015,17 @@ const b: string = a
 // const c: never = a
 ```
 
-*(если ожидаемый тип не `never`)*
+</div>
+<div>
+
+*Ведёт себя как `unknown`.*
+
+</div>
+<div>
+
+*Ведёт себя как `never`*
+
+*(если ожидаемый тип - не `never`).*
 
 </div>
 </div>
@@ -1059,7 +1069,7 @@ dragPos:
 TypeScript **v5.9.3**
 
 <img src="./images/playground.jpg" style="width: 50%" />
-<img v-drag="'playground_options'" src="./images/playground_options.png" />
+<img v-drag="'playground_options'" v-click src="./images/playground_options.png" />
 
 <!--
 Что ж, давайте перейдём к примерам кода. Пробовать будем на свежей версии TypeScript, конфиг оставим рекомендуемый по-умолчанию, в котором, конечно же, включены флаги strict-режима.
@@ -1905,8 +1915,8 @@ layout: default
 <v-clicks>
 
 - Система типов TypeScript имеет проблемы, которые не ловятся линтером
-- Cовместимость типов в TypeScript - не отношение частичного порядка
 - Отсутствие ошибок компиляции `=/=>` отсутствие ошибок в runtime
+- Cовместимость типов в TypeScript - не отношение частичного порядка
 - Трудно выразить контракты, проверяемые статически
 
 </v-clicks>
@@ -1926,8 +1936,8 @@ layout: default
 <v-clicks>
 
 - Иметь правильные типы в коде - must have
-- Совместимость типов в TypeScript !== отношение подтипов
-- Компилируется без ошибок !== не упадёт в runtime
+- Совместимость типов в TypeScript `!==` отношение подтипов
+- Компилируется без ошибок `!==` не упадёт в runtime
 - Best practices, соглашения, самодисциплина, тесты
 
 </v-clicks>
@@ -1950,6 +1960,7 @@ layout: default
       <img src="./images/qr-code.png" style="width: 180px" />
     </span>
     <p><i>Полезные ссылки и <br />материалы к докладу</i></p>
+    <p style="line-height: 1rem"><a href="https://gist.github.com/alfertev2014/c52e94bc6d161df37eabb6d4d4f9848e" style="font-size: 0.5rem">https://gist.github.com/alfertev2014/c52e94bc6d161df37eabb6d4d4f9848e</a></p>
   </div>
   <div>
     <div class="two-cols-grid" style="align-items: center">

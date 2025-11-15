@@ -14,7 +14,8 @@
   --brand-primary-color: #ffcb6b;
   --brand-secondary-color: #c792ea;
   --brand-third-color: #89ddff;
-  .slidev-slide-container .slidev-slide-content .slidev-page {
+  
+  .slidev-slide-container .slidev-slide-content, .slidev-slide-container .slidev-slide-content .slidev-page .slidev-layout {
     background-color: var(--slidev-slide-content-background);
   }
 }
@@ -68,8 +69,9 @@
     }
   }
 
-  code {
+  :not(pre) > code {
     color: #eee;
+    font-weight: 600;
   }
 
   .slidev-code .slidev-code-dishonored {
